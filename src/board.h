@@ -21,8 +21,28 @@ typedef struct board
 
 //function prototypes
 
-board string_to_board(char* input);
+board* string_to_board(char* input);
 
-char* board_to_string(board b);
+board* init_board(void);
+
+void print_board(board* b);
+
+/*
+ * Returns the piece at the given
+ * square. Returns space if the
+ * square is vacant. Used for representing
+ * the board as a string.
+ * (0,0) is a8
+ * (7,0) is h8
+ * (0,7) is a1
+ * (7,7) is h1
+ */
+char get_piece(board* b, int i, int j);
+
+/*
+ * Returns the bitboard corresponding
+ * to the given coordinates.
+ */
+bitboard get_bitboard(int i, int j);
 
 #endif

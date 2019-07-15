@@ -3,5 +3,6 @@
 
 void main()
 {
-    printf("main");
+    board* b = init_board();
+    print_board(b);
 }

@@ -1,3 +1,3 @@
 #include <stdint.h>
 
-typedef int64_t bitboard;
+typedef uint64_t bitboard;
