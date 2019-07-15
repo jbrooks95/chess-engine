@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-I.
-DEPS = board.h bitboard.h
-OBJ = board.o engine.o 
+DEPS = board.h bitboard.h evaluate.h
+OBJ = board.o engine.o evaluate.o
 
 %.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
