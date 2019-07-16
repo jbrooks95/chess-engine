@@ -21,9 +21,21 @@ typedef struct board
 
 //function prototypes
 
-board* string_to_board(char* input);
 
 board* init_board(void);
+
+/*
+ * Returns the board represented
+ * by the given FEN string
+ */
+board* parse_fen(char* fen);
+
+/*
+ * Inserts a piece on the given board
+ * based on the char shift value
+ * provided by the user.
+ */
+board* insert_piece(board* b, char piece, int shift_value);
 
 void print_board(board* b);
 

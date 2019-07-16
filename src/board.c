@@ -1,10 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <board.h>
+#include <ctype.h>
 
-board* string_to_board(char* input)
+int to_move = 0; // 0 if white to move
+int en_passant = -1; // shift value of the target en passant square if exists
+int castling = 0xF; // 4-bit binary value that maps to FEN KQkq
+int halfmove_clock = 0; // count of halfmoves since last capture or pawn advance
+int fullmove_count = 1; // starts at 1, increments after black's move
+
+board* parse_fen(char* fen)
 {
-    printf("success");
+    board* b = malloc(sizeof(board));
+
+    // parse piece locations
+    int shift_value = 0; 
+    int i = 0;
+    char current_char = fen[0];
+    while(current_char != ' ')
+    {
+        if(current_char != '/')
+        {
+            if(isalpha(current_char))
+            {
+                insert_piece(b, current_char, shift_value);
+                shift_value++;
+            }
+            else if(isdigit(current_char))
+            {
+                int shift_increase = (int) current_char - 48; // minus 48 because of ascii
+                shift_value += shift_increase;
+            }
+            else
+            {
+                fprintf(stderr, "Error: Invalid FEN format");
+                return NULL;
+            }
+        }
+        current_char = fen[++i];
+    }
+
+    // parse which side to move
+    // parse castling 
+    // parse en passent target
+    // parse halfmoves 
+    // parse fullmoves
+    return b;
+}
+
+board* insert_piece(board* b, char piece, int shift_value)
+{
+    /* Grid for shift values:
+     * [00][01][02][03][04][05][06][07]
+     * [08][09][10][11][12][13][14][15]
+     * [16][17][18][19][20][21][22][23]
+     * [24][25][26][27][28][29][30][31]
+     * [32][33][34][35][36][37][38][39]
+     * [40][41][42][43][44][45][46][47]
+     * [48][49][50][51][52][53][54][55]
+     * [56][57][58][59][60][61][62][63]
+     */
+    //todo: validate square is vacant, validate 1 king?
+    bitboard start = (bitboard) 1; //cast to bitboard to prevent shift overflow
+    if(piece == 'K') b->white_king = b->white_king | start << shift_value;
+    if(piece == 'Q') b->white_queen = b->white_queen | start << shift_value;
+    if(piece == 'B') b->white_bishops = b->white_bishops | start << shift_value;
+    if(piece == 'N') b->white_knights = b->white_knights | start << shift_value;
+    if(piece == 'R') b->white_rooks = b->white_rooks | start << shift_value;
+    if(piece == 'P') b->white_pawns = b->white_pawns | start << shift_value;
+    if(piece == 'k') b->black_king = b->black_king | start << shift_value;
+    if(piece == 'q') b->black_queen = b->black_queen | start << shift_value;
+    if(piece == 'b') b->black_bishops = b->black_bishops | start << shift_value;
+    if(piece == 'n') b->black_knights = b->black_knights | start << shift_value;
+    if(piece == 'r') b->black_rooks = b->black_rooks | start << shift_value;
+    if(piece == 'p') b->black_pawns = b->black_pawns | start << shift_value;
+    return b;
 }
 
 void print_board(board* b)
@@ -47,46 +117,6 @@ bitboard get_bitboard(int i, int j)
 
 board* init_board(void)
 {
-    /* Grid for shift values:
-     * [00][01][02][03][04][05][06][07]
-     * [08][09][10][11][12][13][14][15]
-     * [16][17][18][19][20][21][22][23]
-     * [24][25][26][27][28][29][30][31]
-     * [32][33][34][35][36][37][38][39]
-     * [40][41][42][43][44][45][46][47]
-     * [48][49][50][51][52][53][54][55]
-     * [56][57][58][59][60][61][62][63]
-     */
-    board* b = malloc(sizeof(board));
-    bitboard start = (bitboard) 1; //cast to bitboard to prevent shift overflow
-
-    b->white_king = start << 60;
-    b->white_queen = start << 59;
-    b->white_bishops = start << 58 | start << 61;
-    b->white_knights = start << 57 | start << 62;
-    b->white_rooks = start << 56 | start << 63;
-    b->white_pawns = start << 48 |
-                     start << 49 |
-                     start << 50 |
-                     start << 51 |
-                     start << 52 |
-                     start << 53 |
-                     start << 54 |
-                     start << 55;
-
-    b->black_king = start << 4;
-    b->black_queen = start << 3;
-    b->black_bishops = start << 2 | start << 5;
-    b->black_knights = start << 1 | start << 6;
-    b->black_rooks = start << 0 | start << 7;
-    b->black_pawns = start << 8 |
-                     start << 9 |
-                     start << 10 |
-                     start << 11 |
-                     start << 12 |
-                     start << 13 |
-                     start << 14 |
-                     start << 15;
-
-    return b;
+    char* starting_position = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    return parse_fen(starting_position);
 }
