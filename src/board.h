@@ -21,7 +21,10 @@ typedef struct board
 
 //function prototypes
 
-
+/*
+ * Returns a board with the
+ * stardard starting position.
+ */
 board* init_board(void);
 
 /*
@@ -37,6 +40,9 @@ board* parse_fen(char* fen);
  */
 board* insert_piece(board* b, char piece, int shift_value);
 
+/*
+ * Prints the board to stdout
+ */
 void print_board(board* b);
 
 /*
@@ -53,7 +59,8 @@ char get_piece(board* b, int i, int j);
 
 /*
  * Returns the bitboard corresponding
- * to the given coordinates.
+ * to the given coordinates. This will
+ * be a bitboard with only one bit set.
  */
 bitboard get_bitboard(int i, int j);
 
