@@ -46,6 +46,12 @@ board* insert_piece(board* b, char piece, int shift_value);
 void print_board(board* b);
 
 /*
+ * Returns the shift value of a
+ * given square's rank and file.
+ */
+int get_shift_value(char file, char rank);
+
+/*
  * Returns the piece at the given
  * square. Returns space if the
  * square is vacant. Used for representing

@@ -3,7 +3,7 @@
 #include <board.h>
 #include <ctype.h>
 
-int to_move = 0; // 0 if white to move
+int to_move = 0; // 0 if white to move, 1 if black to move
 int en_passant = -1; // shift value of the target en passant square if exists
 int castling = 0xF; // 4-bit binary value that maps to FEN KQkq
 int halfmove_clock = 0; // count of halfmoves since last capture or pawn advance
@@ -28,7 +28,7 @@ board* parse_fen(char* fen)
             }
             else if(isdigit(current_char))
             {
-                int shift_increase = (int) current_char - 48; // minus 48 because of ascii
+                int shift_increase = (int) current_char - 48; // subtract 48 because of ascii
                 shift_value += shift_increase;
             }
             else
@@ -39,13 +39,102 @@ board* parse_fen(char* fen)
         }
         current_char = fen[++i];
     }
+    current_char = fen[++i]; // move past space
 
     // parse which side to move
+    if(current_char == 'w')
+    {
+        to_move = 0;
+    }
+    else if(current_char == 'b')
+    {
+        to_move = 1;
+    }
+    else
+    {
+        fprintf(stderr, "Error: Invalid FEN format");
+        return NULL;
+    }
+    i+=2; // move past space
+    current_char = fen[i];
+
     // parse castling 
+    castling = 0;
+    if(current_char == 'K')
+    {
+        castling |= 1<<3;
+        current_char = fen[++i];
+    }
+    if(current_char == 'Q')
+    {
+        castling |= 1<<2;
+        current_char = fen[++i];
+    }
+    if(current_char == 'k')
+    {
+        castling |= 1<<1;
+        current_char = fen[++i];
+    }
+    if(current_char == 'q')
+    {
+        castling |= 1;
+        current_char = fen[++i];
+    }
+    if(current_char != 'K' && current_char != 'Q' &&
+            current_char != 'k' && current_char != 'q' && current_char != ' ')
+    {
+        fprintf(stderr, "Error: Invalid FEN format");
+        return NULL;
+    }
+    current_char = fen[++i]; // move past space
+
     // parse en passent target
+    if(current_char == '-')
+    {
+        en_passant = -1;
+    }
+    else 
+    {
+        char file = current_char;
+        current_char = fen[++i];
+        char rank = current_char;
+        en_passant = get_shift_value(file, rank);
+    }
+    i+=2; // move past space
+    current_char = fen[i];
+
     // parse halfmoves 
+    if(isdigit(current_char))
+    {
+        halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
+    }
+    else
+    {
+        fprintf(stderr, "Error: Invalid FEN format");
+        return NULL;
+    }
+    i+=2; // move past space
+    current_char = fen[i];
+
     // parse fullmoves
+    if(isdigit(current_char))
+    {
+        fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
+    }
+    else
+    {
+        fprintf(stderr, "Error: Invalid FEN format");
+        return NULL;
+    }
+
     return b;
+}
+
+int get_shift_value(char file, char rank)
+{
+    int file_int = (int) file - 97; // subtract 97 because of ascii
+    int rank_int = (int) rank - 48; // subtract 48 because of ascii
+    return (8-rank_int)*8 + file_int; // (8 - rank_int) due to bitboard structure
 }
 
 board* insert_piece(board* b, char piece, int shift_value)
@@ -90,6 +179,18 @@ void print_board(board* b)
         }
         printf("\n");
     }
+
+    printf("\n");
+    printf("to move: %d", to_move);
+    printf("\n");
+    printf("castling: %d", castling);
+    printf("\n");
+    printf("en passant: %d", en_passant);
+    printf("\n");
+    printf("halfmoves: %d", halfmove_clock);
+    printf("\n");
+    printf("move: %d", fullmove_count);
+    printf("\n");
 }
 
 char get_piece(board* b, int i, int j)
