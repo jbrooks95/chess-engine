@@ -127,7 +127,25 @@ board* parse_fen(char* fen)
         return NULL;
     }
 
+    set_all_pieces(b);
     return b;
+}
+
+void set_all_pieces(board* b)
+{
+    b->all_pieces = 
+        b->white_king |
+        b->white_queen |
+        b->white_bishops |
+        b->white_knights |
+        b->white_rooks |
+        b->white_pawns |
+        b->black_king |
+        b->black_queen |
+        b->black_bishops |
+        b->black_knights |
+        b->black_rooks |
+        b->black_pawns;
 }
 
 int get_shift_value(char file, char rank)

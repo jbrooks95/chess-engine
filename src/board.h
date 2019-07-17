@@ -5,6 +5,7 @@
 
 typedef struct board 
 {
+    bitboard all_pieces;
     bitboard white_king;
     bitboard white_queen;
     bitboard white_bishops;
@@ -50,6 +51,13 @@ void print_board(board* b);
  * given square's rank and file.
  */
 int get_shift_value(char file, char rank);
+
+/*
+ * Sets the all_pieces bitboard based
+ * on current position of all pieces 
+ * on given board.
+ */
+void set_all_pieces(board* b);
 
 /*
  * Returns the piece at the given
