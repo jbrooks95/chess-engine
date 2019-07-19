@@ -5,4 +5,6 @@
 
 typedef uint64_t bitboard;
 
+void print_bitboard(bitboard b);
+
 #endif

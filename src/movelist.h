@@ -10,7 +10,7 @@ typedef struct move
     int is_en_passant;
     int promotion; // 0 if none, 1 if queen, 2 if rook, 3 if bishop, 4 if knight
     char piece; 
-    bitboard current; // current square shift value
+    bitboard origin; // origin square shift value
     bitboard target; // target square shift value
 } move;
 

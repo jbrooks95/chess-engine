@@ -3,12 +3,6 @@
 #include <board.h>
 #include <ctype.h>
 
-int to_move = 0; // 0 if white to move, 1 if black to move
-int en_passant = -1; // shift value of the target en passant square if exists
-int castling = 0xF; // 4-bit binary value that maps to FEN KQkq
-int halfmove_clock = 0; // count of halfmoves since last capture or pawn advance
-int fullmove_count = 1; // starts at 1, increments after black's move
-
 board* parse_fen(char* fen)
 {
     board* b = malloc(sizeof(board));
@@ -44,11 +38,11 @@ board* parse_fen(char* fen)
     // parse which side to move
     if(current_char == 'w')
     {
-        to_move = 0;
+        b->to_move = 0;
     }
     else if(current_char == 'b')
     {
-        to_move = 1;
+        b->to_move = 1;
     }
     else
     {
@@ -59,25 +53,25 @@ board* parse_fen(char* fen)
     current_char = fen[i];
 
     // parse castling 
-    castling = 0;
+    b->castling = 0;
     if(current_char == 'K')
     {
-        castling |= 1<<3;
+        b->castling |= 1<<3;
         current_char = fen[++i];
     }
     if(current_char == 'Q')
     {
-        castling |= 1<<2;
+        b->castling |= 1<<2;
         current_char = fen[++i];
     }
     if(current_char == 'k')
     {
-        castling |= 1<<1;
+        b->castling |= 1<<1;
         current_char = fen[++i];
     }
     if(current_char == 'q')
     {
-        castling |= 1;
+        b->castling |= 1;
         current_char = fen[++i];
     }
     if(current_char != 'K' && current_char != 'Q' &&
@@ -91,14 +85,14 @@ board* parse_fen(char* fen)
     // parse en passent target
     if(current_char == '-')
     {
-        en_passant = -1;
+        b->en_passant = -1;
     }
     else 
     {
         char file = current_char;
         current_char = fen[++i];
         char rank = current_char;
-        en_passant = get_shift_value(file, rank);
+        b->en_passant = get_shift_value(file, rank);
     }
     i+=2; // move past space
     current_char = fen[i];
@@ -106,7 +100,7 @@ board* parse_fen(char* fen)
     // parse halfmoves 
     if(isdigit(current_char))
     {
-        halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
+        b->halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
     }
     else
     {
@@ -119,7 +113,7 @@ board* parse_fen(char* fen)
     // parse fullmoves
     if(isdigit(current_char))
     {
-        fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
+        b->fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
     }
     else
     {
@@ -146,6 +140,7 @@ void set_all_pieces(board* b)
         b->black_knights |
         b->black_rooks |
         b->black_pawns;
+    b->empty_squares = ~(b->all_pieces);
 }
 
 int get_shift_value(char file, char rank)
@@ -199,15 +194,15 @@ void print_board(board* b)
     }
 
     printf("\n");
-    printf("to move: %d", to_move);
+    printf("to move: %d", b->to_move);
     printf("\n");
-    printf("castling: %d", castling);
+    printf("castling: %d", b->castling);
     printf("\n");
-    printf("en passant: %d", en_passant);
+    printf("en passant: %d", b->en_passant);
     printf("\n");
-    printf("halfmoves: %d", halfmove_clock);
+    printf("halfmoves: %d", b->halfmove_clock);
     printf("\n");
-    printf("move: %d", fullmove_count);
+    printf("move: %d", b->fullmove_count);
     printf("\n");
 }
 
