@@ -11,6 +11,8 @@ typedef struct board
     int halfmove_clock; // count of halfmoves since last capture or pawn advance
     int fullmove_count; // starts at 1, increments after black's move
     bitboard all_pieces;
+    bitboard white_pieces;
+    bitboard black_pieces;
     bitboard empty_squares; // redundant but easier to program
     bitboard white_king;
     bitboard white_queen;

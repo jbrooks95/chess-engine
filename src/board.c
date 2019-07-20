@@ -127,19 +127,21 @@ board* parse_fen(char* fen)
 
 void set_all_pieces(board* b)
 {
-    b->all_pieces = 
+    b->white_pieces = 
         b->white_king |
         b->white_queen |
         b->white_bishops |
         b->white_knights |
         b->white_rooks |
-        b->white_pawns |
+        b->white_pawns;
+    b->black_pieces = 
         b->black_king |
         b->black_queen |
         b->black_bishops |
         b->black_knights |
         b->black_rooks |
         b->black_pawns;
+    b->all_pieces = b->white_pieces | b->black_pieces;
     b->empty_squares = ~(b->all_pieces);
 }
 
@@ -231,7 +233,6 @@ bitboard get_bitboard(int i, int j)
 
 char* get_algebraic(bitboard b)
 {
-    
     if(b && !(b & (b-1))) // Ensures only 1 bit is set
     {
         bitboard start = (bitboard) 1;

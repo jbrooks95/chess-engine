@@ -47,16 +47,6 @@ move_list* generate_pawn_moves(move_list* list, board* b)
 {
     int i;
 
-    //pawns on 2nd and 7th ranks must be treated differently
-    bitboard pawns_2nd; 
-    bitboard pawns_7th;
-    bitboard pawns_other;
-    // bitboard used for captures
-    bitboard white_pieces = b->all_pieces - (b->white_king | b->white_queen |
-            b->white_bishops | b->white_knights | b->white_rooks | b->white_pawns);
-    bitboard black_pieces = b->all_pieces - (b->black_king | b->black_queen |
-            b->black_bishops | b->black_knights | b->black_rooks | b->black_pawns);
-
     if(!b->to_move) // white to move
     {
         for(i = 8; i < 56; i++) // 8 to 56 because no pawns on 1st and 8th ranks
