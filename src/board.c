@@ -164,18 +164,18 @@ board* insert_piece(board* b, char piece, int shift_value)
      */
     //todo: validate square is vacant, validate 1 king?
     bitboard start = (bitboard) 1; //cast to bitboard to prevent shift overflow
-    if(piece == 'K') b->white_king = b->white_king | start << shift_value;
-    if(piece == 'Q') b->white_queen = b->white_queen | start << shift_value;
-    if(piece == 'B') b->white_bishops = b->white_bishops | start << shift_value;
-    if(piece == 'N') b->white_knights = b->white_knights | start << shift_value;
-    if(piece == 'R') b->white_rooks = b->white_rooks | start << shift_value;
-    if(piece == 'P') b->white_pawns = b->white_pawns | start << shift_value;
-    if(piece == 'k') b->black_king = b->black_king | start << shift_value;
-    if(piece == 'q') b->black_queen = b->black_queen | start << shift_value;
-    if(piece == 'b') b->black_bishops = b->black_bishops | start << shift_value;
-    if(piece == 'n') b->black_knights = b->black_knights | start << shift_value;
-    if(piece == 'r') b->black_rooks = b->black_rooks | start << shift_value;
-    if(piece == 'p') b->black_pawns = b->black_pawns | start << shift_value;
+    if(piece == 'K') b->white_king |= start << shift_value;
+    if(piece == 'Q') b->white_queen |= start << shift_value;
+    if(piece == 'B') b->white_bishops |= start << shift_value;
+    if(piece == 'N') b->white_knights |= start << shift_value;
+    if(piece == 'R') b->white_rooks |= start << shift_value;
+    if(piece == 'P') b->white_pawns |= start << shift_value;
+    if(piece == 'k') b->black_king |= start << shift_value;
+    if(piece == 'q') b->black_queen |= start << shift_value;
+    if(piece == 'b') b->black_bishops |= start << shift_value;
+    if(piece == 'n') b->black_knights |= start << shift_value;
+    if(piece == 'r') b->black_rooks |= start << shift_value;
+    if(piece == 'p') b->black_pawns |= start << shift_value;
     return b;
 }
 
@@ -227,6 +227,38 @@ char get_piece(board* b, int i, int j)
 bitboard get_bitboard(int i, int j)
 {
    return ((bitboard)1) << ((i*8) + j);
+}
+
+char* get_algebraic(bitboard b)
+{
+    
+    if(b && !(b & (b-1))) // Ensures only 1 bit is set
+    {
+        bitboard start = (bitboard) 1;
+        int shift_value = -1;
+        int i = 0;
+        while(shift_value == -1 && i < 64)
+        {
+            if(start << i & b)
+            {
+                shift_value = i;
+            }
+            i++;
+        }
+        if(i == 64) return "Error parsing square"; // Is this check necessary?
+        int mod_val = shift_value % 8;
+        char file = mod_val + 97;
+        char rank = (char) (8 - ((shift_value - mod_val) + 1) / 8) + 48;
+        char* str = malloc(sizeof(char) * 3);
+        str[0] = file;
+        str[1] = rank;
+        str[2] = '\0';
+        return str; 
+    }
+    else
+    {
+        return "Not a valid square";
+    }
 }
 
 board* init_board(void)

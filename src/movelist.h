@@ -51,4 +51,16 @@ int isEmpty(move_list* list);
  */
 void free_list(move_list* list);
 
+/*
+ * Prints the list of moves
+ * in algebraic notation
+ */
+void print_moves(move_list* list);
+
+/*
+ * Prints the algebraic represenation
+ * of a move
+ */
+void print_move(move m);
+
 #endif

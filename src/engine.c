@@ -3,9 +3,17 @@
 #include <static_bitboards.h>
 #include <bitboard.h>
 #include <evaluate.h>
+#include <movegen.h>
 
 void main()
 {
+
+    bitboard test = (bitboard) 16777216;
+    printf(get_algebraic(test));
+    printf("\n");
+    printf("\n");
+    printf("\n");
+
     board* b = init_board();
     print_board(b);
     printf("\n");
@@ -17,6 +25,7 @@ void main()
     printf("\n");
 
 
+
     int eval = evaluate(b);
     printf("evaluation = %d", eval);
     printf("\n");
@@ -24,6 +33,7 @@ void main()
     printf("\n");
     printf("\n");
 
+    /*
     printf("rank1: ");
     printf("\n");
     print_bitboard(RANK_1);
@@ -123,4 +133,8 @@ void main()
     printf("\n");
     print_bitboard(EXTENDED_CENTER);
     printf("\n");
+    */
+
+    move_list* test2 = generate_moves(b2);
+    print_moves(test2);
 }

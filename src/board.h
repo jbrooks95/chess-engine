@@ -35,6 +35,12 @@ typedef struct board
 board* init_board(void);
 
 /*
+ * Returns string of algebraic notation of 
+ * a square given as bitboard
+ */
+char* get_algebraic(bitboard b);
+
+/*
  * Returns the board represented
  * by the given FEN string
  */
