@@ -6,7 +6,7 @@
 #include <movelist.h>
 
 /*
- * Returns a list of legal moves
+ * Returns a list of pseudo-legal moves
  * given a board.
  */
 move_list* generate_moves(board* b);

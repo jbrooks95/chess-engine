@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+//function prototypes
+char to_upper(char c);
+
 move_list* init_list()
 {
     move_list* list = malloc(sizeof(move_list));
@@ -51,16 +54,20 @@ void print_move(move m)
     //todo Nbxd4 Nexd4
     if(m.piece != 'P' && m.piece != 'p')
     {
-        printf("%c", m.piece); //todo add to_upper()
+        printf("%c", to_upper(m.piece));
     }
     if(m.is_capture)
     {
+        if(m.piece == 'P' || m.piece == 'p')
+        {
+            printf("%c", get_algebraic(m.origin)[0]);
+        }
         printf("x");
     }
     printf(get_algebraic(m.target));
     if(m.is_en_passant)
     {
-        printf("e.p.");
+        printf(" e.p.");
     }
     else if(m.promotion)
     {
@@ -69,4 +76,13 @@ void print_move(move m)
         else if(m.promotion == 3) printf("=B");
         else if(m.promotion == 4) printf("=N");
     }
+}
+
+char to_upper(char c)
+{
+    if(c >= 'a' && c <= 'z')
+    {
+        return c-32;
+    }
+    return c;
 }

@@ -171,28 +171,40 @@ board* insert_piece(board* b, char piece, int shift_value)
     {
         case 'K':
             b->white_king |= start << shift_value;
+            break;
         case 'Q':
             b->white_queen |= start << shift_value;
+            break;
         case 'B':
             b->white_bishops |= start << shift_value;
+            break;
         case 'N':
             b->white_knights |= start << shift_value;
+            break;
         case 'R':
             b->white_rooks |= start << shift_value;
+            break;
         case 'P':
             b->white_pawns |= start << shift_value;
+            break;
         case 'k':
             b->black_king |= start << shift_value;
+            break;
         case 'q':
             b->black_queen |= start << shift_value;
+            break;
         case 'b':
             b->black_bishops |= start << shift_value;
+            break;
         case 'n':
             b->black_knights |= start << shift_value;
+            break;
         case 'r':
             b->black_rooks |= start << shift_value;
+            break;
         case 'p':
             b->black_pawns |= start << shift_value;
+            break;
     }
     return b;
 }
@@ -228,17 +240,17 @@ char get_piece(board* b, int i, int j)
 {
     bitboard current_square = get_bitboard(i, j);
     if(b->white_king & current_square) return 'K';
-    if(b->white_queen & current_square) return 'Q';
-    if(b->white_bishops & current_square) return 'B';
-    if(b->white_knights & current_square) return 'N';
-    if(b->white_rooks & current_square) return 'R';
-    if(b->white_pawns & current_square) return 'P';
-    if(b->black_king & current_square) return 'k';
-    if(b->black_queen & current_square) return 'q';
-    if(b->black_bishops & current_square) return 'b';
-    if(b->black_knights & current_square) return 'n';
-    if(b->black_rooks & current_square) return 'r';
-    if(b->black_pawns & current_square) return 'p';
+    else if(b->white_queen & current_square) return 'Q';
+    else if(b->white_bishops & current_square) return 'B';
+    else if(b->white_knights & current_square) return 'N';
+    else if(b->white_rooks & current_square) return 'R';
+    else if(b->white_pawns & current_square) return 'P';
+    else if(b->black_king & current_square) return 'k';
+    else if(b->black_queen & current_square) return 'q';
+    else if(b->black_bishops & current_square) return 'b';
+    else if(b->black_knights & current_square) return 'n';
+    else if(b->black_rooks & current_square) return 'r';
+    else if(b->black_pawns & current_square) return 'p';
     return ' '; //square is vacant
 }
 
