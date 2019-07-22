@@ -166,18 +166,34 @@ board* insert_piece(board* b, char piece, int shift_value)
      */
     //todo: validate square is vacant, validate 1 king?
     bitboard start = (bitboard) 1; //cast to bitboard to prevent shift overflow
-    if(piece == 'K') b->white_king |= start << shift_value;
-    if(piece == 'Q') b->white_queen |= start << shift_value;
-    if(piece == 'B') b->white_bishops |= start << shift_value;
-    if(piece == 'N') b->white_knights |= start << shift_value;
-    if(piece == 'R') b->white_rooks |= start << shift_value;
-    if(piece == 'P') b->white_pawns |= start << shift_value;
-    if(piece == 'k') b->black_king |= start << shift_value;
-    if(piece == 'q') b->black_queen |= start << shift_value;
-    if(piece == 'b') b->black_bishops |= start << shift_value;
-    if(piece == 'n') b->black_knights |= start << shift_value;
-    if(piece == 'r') b->black_rooks |= start << shift_value;
-    if(piece == 'p') b->black_pawns |= start << shift_value;
+    
+    switch(piece)
+    {
+        case 'K':
+            b->white_king |= start << shift_value;
+        case 'Q':
+            b->white_queen |= start << shift_value;
+        case 'B':
+            b->white_bishops |= start << shift_value;
+        case 'N':
+            b->white_knights |= start << shift_value;
+        case 'R':
+            b->white_rooks |= start << shift_value;
+        case 'P':
+            b->white_pawns |= start << shift_value;
+        case 'k':
+            b->black_king |= start << shift_value;
+        case 'q':
+            b->black_queen |= start << shift_value;
+        case 'b':
+            b->black_bishops |= start << shift_value;
+        case 'n':
+            b->black_knights |= start << shift_value;
+        case 'r':
+            b->black_rooks |= start << shift_value;
+        case 'p':
+            b->black_pawns |= start << shift_value;
+    }
     return b;
 }
 
