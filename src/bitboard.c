@@ -5,6 +5,8 @@
 //function prototypes
 int is_vacant(bitboard b, int i, int j);
 
+bitboard start = (bitboard) 1;
+
 void print_bitboard(bitboard b)
 {
     int i, j;

@@ -11,6 +11,6 @@
  * Add all pseudo-legal pawn moves
  * on a given board to the given list.
  */
-void generate_pawn_moves(move_list*, board* b);
+void generate_pawn_moves(move_list*, board*);
 
 #endif

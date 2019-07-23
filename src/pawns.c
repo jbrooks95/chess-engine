@@ -1,7 +1,5 @@
 #include <pawns.h>
 
-bitboard start = (bitboard) 1;
-
 void generate_pawn_moves(move_list* list, board* b)
 {
     int i;

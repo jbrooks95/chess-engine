@@ -27,7 +27,8 @@ void main()
     //char* fen2 = "rnbqkb1r/pp1p1p1P/2p2n2/4p3/4P3/8/PPPP2PP/RNBQKBNR w KQkq - 0 6";
     //char* fen2 = "rnbqkbnr/pp1p1p1P/2p5/4p3/4P3/3P4/PPP3PP/RNBQKBNR w KQkq - 1 7";
     //char* fen2 = "rnbqkbnr/p2p1p1P/2p5/4p3/Pp1PP3/7P/1PP3P1/RNBQKBNR b KQkq a3 0 9";
-    char* fen2 = "rnbqkbnr/p2p1p1P/2p5/3Pp1B1/P3P3/7P/1Pp3P1/RN1QKBNR b KQkq - 1 11";
+    //char* fen2 = "rnbqkbnr/p2p1p1P/2p5/3Pp1B1/P3P3/7P/1Pp3P1/RN1QKBNR b KQkq - 1 11";
+    char* fen2 = "rnbqkbnr/pp5p/2p3p1/3pP3/4P3/5Q2/PPP3PP/RNB1KBNR w KQkq - 0 7";
     board* b2 = parse_fen(fen2);
     print_board(b2);
     printf("\n");
