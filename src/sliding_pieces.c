@@ -33,10 +33,9 @@ void slide_diagonal(move_list* list, board* b, char piece, bitboard origin)
 
 void slide_up(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_8))
         {
@@ -66,26 +65,26 @@ void slide_up(move_list* list, board* b, bitboard enemy_pieces, char piece, bitb
                     .target = shift_up(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_down(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_1))
         {
@@ -115,26 +114,26 @@ void slide_down(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .target = shift_down(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_right(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & FILE_H))
         {
@@ -164,26 +163,26 @@ void slide_right(move_list* list, board* b, bitboard enemy_pieces, char piece, b
                     .target = shift_right(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & FILE_A))
         {
@@ -213,26 +212,26 @@ void slide_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .target = shift_left(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_up_right(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_8) && !(current & FILE_H))
         {
@@ -262,26 +261,26 @@ void slide_up_right(move_list* list, board* b, bitboard enemy_pieces, char piece
                     .target = shift_up_right(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_down_right(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_1) && !(current & FILE_H))
         {
@@ -311,26 +310,26 @@ void slide_down_right(move_list* list, board* b, bitboard enemy_pieces, char pie
                     .target = shift_down_right(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_down_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_1) && !(current & FILE_A))
         {
@@ -360,26 +359,26 @@ void slide_down_left(move_list* list, board* b, bitboard enemy_pieces, char piec
                     .target = shift_down_left(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
 
 void slide_up_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bitboard origin)
 {
-    int stop = 0;
     bitboard current = origin;
 
-    while(!stop)
+    while(1)
     {
         if(!(current & RANK_8) && !(current & FILE_A))
         {
@@ -409,16 +408,17 @@ void slide_up_left(move_list* list, board* b, bitboard enemy_pieces, char piece,
                     .target = shift_up_left(current)
                 };
                 add_move(list, m);
-                stop = 1;
+                break;
             }
             else
             {
-                stop = 1;
+                break;
             }
+            if(piece == 'K' || piece == 'k') break;
         }
         else
         {
-            stop = 1;
+            break;
         }
     }
 }
