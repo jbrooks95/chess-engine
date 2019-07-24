@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <movegen.h>
 #include <pawns.h>
+#include <knights.h>
 #include <sliding_pieces.h>
 
 // function prototypes
@@ -15,6 +16,7 @@ move_list* generate_moves(board* b)
     generate_pawn_moves(list, b);
     generate_queen_moves(list, b);
     generate_bishop_moves(list, b);
+    generate_knight_moves(list, b);
     generate_rook_moves(list, b);
     generate_king_moves(list, b);
     return list;
