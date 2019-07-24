@@ -6,102 +6,46 @@ void generate_pawn_moves(move_list* list, board* b)
 
     if(!b->to_move) // white to move
     {
-        for(i = 8; i < 56; i++) // 8 to 56 because no pawns on 1st and 8th ranks
+        if(b->white_pawns)
         {
-            bitboard mask = start << i;
-            if(b->white_pawns & mask)
+            for(i = 8; i < 56; i++) // 8 to 56 because no pawns on 1st and 8th ranks
             {
-                //move up
-                if(shift_up(mask) & b->empty_squares)
+                bitboard mask = start << i;
+                if(b->white_pawns & mask)
                 {
-                    if(!(mask & RANK_7))
-                    {
-                        //moves
-                        move m = 
-                        {
-                            .is_capture = 0,
-                            .is_en_passant = 0,
-                            .promotion = 0,
-                            .piece = 'P',
-                            .origin = mask,
-                            .target = shift_up(mask)
-                        };
-                        add_move(list, m);
-                        if(mask & RANK_2 && shift_up(shift_up(mask)) & b->empty_squares) // for 2-square moves
-                        {
-                            m.target = shift_up(shift_up(mask));
-                            add_move(list, m);
-                        }
-                    }
-                    else
-                    {
-                        //handle promotion
-                        move m = 
-                        {
-                            .is_capture = 0,
-                            .is_en_passant = 0,
-                            .promotion = 1,
-                            .piece = 'P',
-                            .origin = mask,
-                            .target = shift_up(mask)
-                        };
-                        add_move(list, m);
-                        m.promotion = 2; 
-                        add_move(list, m);
-                        m.promotion = 3;
-                        add_move(list, m);
-                        m.promotion = 4;
-                        add_move(list, m);
-                    }
-                }
-                //capture up left
-                if(!(mask & FILE_A)) 
-                {
-                    //handle en passant
-                    if(b->en_passant != -1)
-                    {
-                        bitboard en_passant = start << b->en_passant;
-                        if(shift_up_left(mask) & en_passant)
-                        {
-                            move m = 
-                            {
-                                .is_capture = 1,
-                                .is_en_passant = 1,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_up_left(mask)
-                            };
-                            add_move(list, m);
-                        }
-                    }
-                    if(shift_up_left(mask) & b->black_pieces)
+                    //move up
+                    if(shift_up(mask) & b->empty_squares)
                     {
                         if(!(mask & RANK_7))
                         {
-                            //normal capture
+                            //moves
                             move m = 
                             {
-                                .is_capture = 1,
+                                .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
                                 .piece = 'P',
                                 .origin = mask,
-                                .target = shift_up_left(mask)
+                                .target = shift_up(mask)
                             };
                             add_move(list, m);
+                            if(mask & RANK_2 && shift_up(shift_up(mask)) & b->empty_squares) // for 2-square moves
+                            {
+                                m.target = shift_up(shift_up(mask));
+                                add_move(list, m);
+                            }
                         }
                         else
                         {
                             //handle promotion
                             move m = 
                             {
-                                .is_capture = 1,
+                                .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 1,
                                 .piece = 'P',
                                 .origin = mask,
-                                .target = shift_up_left(mask)
+                                .target = shift_up(mask)
                             };
                             add_move(list, m);
                             m.promotion = 2; 
@@ -112,63 +56,122 @@ void generate_pawn_moves(move_list* list, board* b)
                             add_move(list, m);
                         }
                     }
-                }
-                //capture up right
-                if(!(mask & FILE_H)) 
-                {
-                    //handle en passant
-                    if(b->en_passant != -1)
+                    //capture up left
+                    if(!(mask & FILE_A)) 
                     {
-                        bitboard en_passant = start << b->en_passant;
-                        if(shift_up_right(mask) & en_passant)
+                        //handle en passant
+                        if(b->en_passant != -1)
                         {
-                            move m = 
+                            bitboard en_passant = start << b->en_passant;
+                            if(shift_up_left(mask) & en_passant)
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 1,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_up_right(mask)
-                            };
-                            add_move(list, m);
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 1,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_left(mask)
+                                };
+                                add_move(list, m);
+                            }
+                        }
+                        if(shift_up_left(mask) & b->black_pieces)
+                        {
+                            if(!(mask & RANK_7))
+                            {
+                                //normal capture
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_left(mask)
+                                };
+                                add_move(list, m);
+                            }
+                            else
+                            {
+                                //handle promotion
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 1,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_left(mask)
+                                };
+                                add_move(list, m);
+                                m.promotion = 2; 
+                                add_move(list, m);
+                                m.promotion = 3;
+                                add_move(list, m);
+                                m.promotion = 4;
+                                add_move(list, m);
+                            }
                         }
                     }
-                    if(shift_up_right(mask) & b->black_pieces)
+                    //capture up right
+                    if(!(mask & FILE_H)) 
                     {
-                        if(!(mask & RANK_7))
+                        //handle en passant
+                        if(b->en_passant != -1)
                         {
-                            //normal capture
-                            move m = 
+                            bitboard en_passant = start << b->en_passant;
+                            if(shift_up_right(mask) & en_passant)
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 0,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_up_right(mask)
-                            };
-                            add_move(list, m);
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 1,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_right(mask)
+                                };
+                                add_move(list, m);
+                            }
                         }
-                        else
+                        if(shift_up_right(mask) & b->black_pieces)
                         {
-                            //handle promotion
-                            move m = 
+                            if(!(mask & RANK_7))
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 0,
-                                .promotion = 1,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_up_right(mask)
-                            };
-                            add_move(list, m);
-                            m.promotion = 2; 
-                            add_move(list, m);
-                            m.promotion = 3;
-                            add_move(list, m);
-                            m.promotion = 4;
-                            add_move(list, m);
+                                //normal capture
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_right(mask)
+                                };
+                                add_move(list, m);
+                            }
+                            else
+                            {
+                                //handle promotion
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 1,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_up_right(mask)
+                                };
+                                add_move(list, m);
+                                m.promotion = 2; 
+                                add_move(list, m);
+                                m.promotion = 3;
+                                add_move(list, m);
+                                m.promotion = 4;
+                                add_move(list, m);
+                            }
                         }
                     }
                 }
@@ -177,102 +180,46 @@ void generate_pawn_moves(move_list* list, board* b)
     }
     else // black to move
     {
-        for(i = 8; i < 56; i++) // 8 to 56 because no pawns on 1st and 8th ranks
+        if(b->black_pawns)
         {
-            bitboard mask = start << i;
-            if(b->black_pawns & mask)
+            for(i = 8; i < 56; i++) // 8 to 56 because no pawns on 1st and 8th ranks
             {
-                //move down
-                if(shift_down(mask) & b->empty_squares)
+                bitboard mask = start << i;
+                if(b->black_pawns & mask)
                 {
-                    if(!(mask & RANK_2))
-                    {
-                        //moves
-                        move m = 
-                        {
-                            .is_capture = 0,
-                            .is_en_passant = 0,
-                            .promotion = 0,
-                            .piece = 'P',
-                            .origin = mask,
-                            .target = shift_down(mask)
-                        };
-                        add_move(list, m);
-                        if(mask & RANK_7 && shift_down(shift_down(mask)) & b->empty_squares) // for 2-square moves
-                        {
-                            m.target = shift_down(shift_down(mask));
-                            add_move(list, m);
-                        }
-                    }
-                    else
-                    {
-                        //handle promotion
-                        move m = 
-                        {
-                            .is_capture = 0,
-                            .is_en_passant = 0,
-                            .promotion = 1,
-                            .piece = 'P',
-                            .origin = mask,
-                            .target = shift_down(mask)
-                        };
-                        add_move(list, m);
-                        m.promotion = 2; 
-                        add_move(list, m);
-                        m.promotion = 3;
-                        add_move(list, m);
-                        m.promotion = 4;
-                        add_move(list, m);
-                    }
-                }
-                //capture down left
-                if(!(mask & FILE_A)) 
-                {
-                    //handle en passant
-                    if(b->en_passant != -1)
-                    {
-                        bitboard en_passant = start << b->en_passant;
-                        if(shift_down_left(mask) & en_passant)
-                        {
-                            move m = 
-                            {
-                                .is_capture = 1,
-                                .is_en_passant = 1,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_down_left(mask)
-                            };
-                            add_move(list, m);
-                        }
-                    }
-                    if(shift_down_left(mask) & b->white_pieces)
+                    //move down
+                    if(shift_down(mask) & b->empty_squares)
                     {
                         if(!(mask & RANK_2))
                         {
-                            //normal capture
+                            //moves
                             move m = 
                             {
-                                .is_capture = 1,
+                                .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
                                 .piece = 'P',
                                 .origin = mask,
-                                .target = shift_down_left(mask)
+                                .target = shift_down(mask)
                             };
                             add_move(list, m);
+                            if(mask & RANK_7 && shift_down(shift_down(mask)) & b->empty_squares) // for 2-square moves
+                            {
+                                m.target = shift_down(shift_down(mask));
+                                add_move(list, m);
+                            }
                         }
                         else
                         {
                             //handle promotion
                             move m = 
                             {
-                                .is_capture = 1,
+                                .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 1,
                                 .piece = 'P',
                                 .origin = mask,
-                                .target = shift_down_left(mask)
+                                .target = shift_down(mask)
                             };
                             add_move(list, m);
                             m.promotion = 2; 
@@ -283,63 +230,122 @@ void generate_pawn_moves(move_list* list, board* b)
                             add_move(list, m);
                         }
                     }
-                }
-                //capture down right
-                if(!(mask & FILE_H)) 
-                {
-                    //handle en passant
-                    if(b->en_passant != -1)
+                    //capture down left
+                    if(!(mask & FILE_A)) 
                     {
-                        bitboard en_passant = start << b->en_passant;
-                        if(shift_down_right(mask) & en_passant)
+                        //handle en passant
+                        if(b->en_passant != -1)
                         {
-                            move m = 
+                            bitboard en_passant = start << b->en_passant;
+                            if(shift_down_left(mask) & en_passant)
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 1,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_down_right(mask)
-                            };
-                            add_move(list, m);
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 1,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_left(mask)
+                                };
+                                add_move(list, m);
+                            }
+                        }
+                        if(shift_down_left(mask) & b->white_pieces)
+                        {
+                            if(!(mask & RANK_2))
+                            {
+                                //normal capture
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_left(mask)
+                                };
+                                add_move(list, m);
+                            }
+                            else
+                            {
+                                //handle promotion
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 1,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_left(mask)
+                                };
+                                add_move(list, m);
+                                m.promotion = 2; 
+                                add_move(list, m);
+                                m.promotion = 3;
+                                add_move(list, m);
+                                m.promotion = 4;
+                                add_move(list, m);
+                            }
                         }
                     }
-                    if(shift_down_right(mask) & b->white_pieces)
+                    //capture down right
+                    if(!(mask & FILE_H)) 
                     {
-                        if(!(mask & RANK_2))
+                        //handle en passant
+                        if(b->en_passant != -1)
                         {
-                            //normal capture
-                            move m = 
+                            bitboard en_passant = start << b->en_passant;
+                            if(shift_down_right(mask) & en_passant)
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 0,
-                                .promotion = 0,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_down_right(mask)
-                            };
-                            add_move(list, m);
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 1,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_right(mask)
+                                };
+                                add_move(list, m);
+                            }
                         }
-                        else
+                        if(shift_down_right(mask) & b->white_pieces)
                         {
-                            //handle promotion
-                            move m = 
+                            if(!(mask & RANK_2))
                             {
-                                .is_capture = 1,
-                                .is_en_passant = 0,
-                                .promotion = 1,
-                                .piece = 'P',
-                                .origin = mask,
-                                .target = shift_down_right(mask)
-                            };
-                            add_move(list, m);
-                            m.promotion = 2; 
-                            add_move(list, m);
-                            m.promotion = 3;
-                            add_move(list, m);
-                            m.promotion = 4;
-                            add_move(list, m);
+                                //normal capture
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 0,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_right(mask)
+                                };
+                                add_move(list, m);
+                            }
+                            else
+                            {
+                                //handle promotion
+                                move m = 
+                                {
+                                    .is_capture = 1,
+                                    .is_en_passant = 0,
+                                    .promotion = 1,
+                                    .piece = 'P',
+                                    .origin = mask,
+                                    .target = shift_down_right(mask)
+                                };
+                                add_move(list, m);
+                                m.promotion = 2; 
+                                add_move(list, m);
+                                m.promotion = 3;
+                                add_move(list, m);
+                                m.promotion = 4;
+                                add_move(list, m);
+                            }
                         }
                     }
                 }
