@@ -20,3 +20,12 @@ bitboard shift_up_right(bitboard b) { return b >> 7; }
 bitboard shift_down_left(bitboard b) { return b << 7; }
 bitboard shift_down_right(bitboard b) { return b << 9; }
 
+//knight moves
+bitboard shift_up_up_left(bitboard b) { return b >> 17; }
+bitboard shift_up_up_right(bitboard b) { return b >> 15; }
+bitboard shift_up_left_left(bitboard b) { return b >> 10; }
+bitboard shift_up_right_right(bitboard b) { return b >> 6; }
+bitboard shift_down_down_right(bitboard b) { return b << 17; }
+bitboard shift_down_down_left(bitboard b) { return b << 15; }
+bitboard shift_down_left_left(bitboard b) { return b << 6; }
+bitboard shift_down_right_right(bitboard b) { return b << 10; }
