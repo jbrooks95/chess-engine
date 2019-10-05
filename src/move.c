@@ -1,4 +1,5 @@
 #include <move.h>
+#include <stdlib.h>
 #include <static_bitboards.h>
 
 // These functions return the bitboards of squares

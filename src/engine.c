@@ -6,9 +6,11 @@
 #include <movegen.h>
 #include <pickmove.h>
 #include <movelist.h>
+#include <test.h>
 
 void main()
 {
+    run_tests();
 
     bitboard test = (bitboard) 16777216;
     printf(get_algebraic(test));
