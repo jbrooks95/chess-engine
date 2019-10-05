@@ -38,17 +38,24 @@ void main()
     printf("\n");
 
 
+    move_list* test2 = generate_moves(b2);
+    print_moves(test2);
+    //return;
+
+    run_tests();
+
     printf("yeah\n");
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 10);
+    move found_move = pick_move(b2, 2);
     print_move(found_move);
     printf("\n");
     printf("\n");
     printf("\n");
     printf("\n");
 
+     return;
     int eval = evaluate(b);
     printf("evaluation = %d", eval);
     printf("\n");
@@ -157,9 +164,4 @@ void main()
     print_bitboard(EXTENDED_CENTER);
     printf("\n");
     */
-
-    move_list* test2 = generate_moves(b2);
-    print_moves(test2);
-
-    run_tests();
 }
