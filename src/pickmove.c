@@ -4,7 +4,9 @@
 #include <pickmove.h>
 #include <evaluate.h>
 #include <movegen.h>
+#include <move.h>
 
+//function prototypes
 int min(int, int);
 int max(int, int);
 
@@ -50,11 +52,6 @@ move pick_move(board* b, int search_depth)
         current = current->next;
     }
     return best_move;
-}
-
-board* make_move(board* b, move m)
-{
-    return NULL;
 }
 
 int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int alpha, int beta)
