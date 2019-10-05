@@ -10,7 +10,6 @@
 
 void main()
 {
-    run_tests();
 
     bitboard test = (bitboard) 16777216;
     printf(get_algebraic(test));
@@ -39,7 +38,7 @@ void main()
     printf("\n");
 
 
-    printf("fuck yeah\n");
+    printf("yeah\n");
     printf("\n");
     printf("\n");
     printf("\n");
@@ -162,4 +161,5 @@ void main()
     move_list* test2 = generate_moves(b2);
     print_moves(test2);
 
+    run_tests();
 }

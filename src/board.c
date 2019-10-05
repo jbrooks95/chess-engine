@@ -27,7 +27,7 @@ board* parse_fen(char* fen)
             }
             else
             {
-                fprintf(stderr, "Error: Invalid FEN format");
+                fprintf(stderr, "Error: Invalid FEN format. Can't parse piece positions.");
                 return NULL;
             }
         }
@@ -46,7 +46,7 @@ board* parse_fen(char* fen)
     }
     else
     {
-        fprintf(stderr, "Error: Invalid FEN format");
+        fprintf(stderr, "Error: Invalid FEN format. Can't parse player to move.");
         return NULL;
     }
     i+=2; // move past space
@@ -74,10 +74,14 @@ board* parse_fen(char* fen)
         b->castling |= 1;
         current_char = fen[++i];
     }
+    if(current_char == '-')
+    {
+        current_char = fen[++i]; // move past dash
+    }
     if(current_char != 'K' && current_char != 'Q' &&
             current_char != 'k' && current_char != 'q' && current_char != ' ')
     {
-        fprintf(stderr, "Error: Invalid FEN format");
+        fprintf(stderr, "Error: Invalid FEN format. Can't parse castling.");
         return NULL;
     }
     current_char = fen[++i]; // move past space
@@ -94,31 +98,39 @@ board* parse_fen(char* fen)
         char rank = current_char;
         b->en_passant = get_shift_value(file, rank);
     }
-    i+=2; // move past space
-    current_char = fen[i];
-
-    // parse halfmoves 
-    if(isdigit(current_char))
+    current_char = fen[++i]; // move past dash
+    if(current_char != '\0') // check if end of string
     {
-        b->halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
+        current_char = fen[++i]; // move past space
+
+        // parse halfmoves 
+        if(isdigit(current_char))
+        {
+            b->halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
+        }
+        else
+        {
+            fprintf(stderr, "Error: Invalid FEN format. Can't parse half moves.");
+            return NULL;
+        }
+        i+=2; // move past space
+        current_char = fen[i];
+
+        // parse fullmoves
+        if(isdigit(current_char))
+        {
+            b->fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
+        }
+        else
+        {
+            fprintf(stderr, "Error: Invalid FEN format. Can't parse full moves.");
+            return NULL;
+        }
     }
     else
     {
-        fprintf(stderr, "Error: Invalid FEN format");
-        return NULL;
-    }
-    i+=2; // move past space
-    current_char = fen[i];
-
-    // parse fullmoves
-    if(isdigit(current_char))
-    {
-        b->fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
-    }
-    else
-    {
-        fprintf(stderr, "Error: Invalid FEN format");
-        return NULL;
+        b->halfmove_clock = 0;
+        b->fullmove_count = 1;
     }
 
     set_all_pieces(b);

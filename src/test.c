@@ -221,7 +221,7 @@ void test_is_king_checked()
 
 void assert(int actual, int expected, int count)
 {
-    if(actual != expected)
+    if(actual == expected)
     {
         printf("Test %d: PASS\n", count);
     }
