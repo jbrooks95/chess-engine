@@ -4,6 +4,8 @@
 #include <bitboard.h>
 #include <evaluate.h>
 #include <movegen.h>
+#include <pickmove.h>
+#include <movelist.h>
 
 void main()
 {
@@ -35,6 +37,16 @@ void main()
     printf("\n");
 
 
+    printf("fuck yeah\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    move found_move = pick_move(b2, 10);
+    print_move(found_move);
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("\n");
 
     int eval = evaluate(b);
     printf("evaluation = %d", eval);
@@ -147,4 +159,5 @@ void main()
 
     move_list* test2 = generate_moves(b2);
     print_moves(test2);
+
 }
