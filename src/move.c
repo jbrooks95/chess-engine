@@ -9,7 +9,11 @@ bitboard get_shift_value_from_value(bitboard value);
 board* make_move(board* b, move m)
 {
     bitboard start = (bitboard) 1;
-    int halfmove_set = 0;
+
+    // increment half move clock.
+    // it gets set to 0 if needed later in function.
+    b->halfmove_clock++;
+
     // remove captured pieces
     if(m.is_capture)
     {
@@ -56,7 +60,7 @@ board* make_move(board* b, move m)
             {
                 b->en_passant = get_shift_value_from_value(shift_up(m.origin));
             }
-            b->halfmove_clock++;
+            b->halfmove_clock = 0;
             break;
         case 'p':
             b->black_pawns ^= m.origin; //remove
@@ -65,7 +69,7 @@ board* make_move(board* b, move m)
             {
                 b->en_passant = get_shift_value_from_value(shift_down(m.origin));
             }
-            b->halfmove_clock++;
+            b->halfmove_clock = 0;
             break;
         case 'N':
             b->white_knights ^= m.origin;
@@ -128,13 +132,9 @@ board* make_move(board* b, move m)
 
     }
     set_all_pieces(b);
-    //todo: halfmove clock
-    if(!halfmove_set)
+    if(is_king_checked(b))
     {
-        if(is_king_checked(b))
-        {
-            b->halfmove_clock++;
-        }
+        b->halfmove_clock = 0;
     }
     if(b->to_move)
     {

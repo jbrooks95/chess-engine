@@ -45,10 +45,22 @@ void test_make_move()
         .promotion = 0,
         .castling = 'x',
         .piece = 'q',
-        .origin = start<<24,
-        .target = start<<17
+        .origin = start<<39,
+        .target = start<<46
     };
+    print_move(m);
+    printf("before\n");
+    print_board(before);
+    printf("\n");
     make_move(before, m);
+    printf("actual:\n");
+    print_board(before);
+    printf("expected:\n");
+    print_board(after);
+    printf("black queen bitboard:\n");
+    print_bitboard(before->black_queen);
+    printf("white queen bitboard:\n");
+    print_bitboard(before->white_queen);
     assert_board_equality(before, after, count++);
 }
 
