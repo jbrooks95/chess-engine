@@ -1,7 +1,9 @@
 #include <test.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <board.h>
 #include <movelist.h>
+#include <move.h>
 
 // function prototypes
 void assert(int, int, int);
@@ -28,15 +30,16 @@ void test_make_move()
     printf("Test: move\n");
     bitboard start = (bitboard) 1;
     char* before_fen;
-    char* after_fen;
+    char* expected_fen;
     board* before;
-    board* after;
+    board* expected;
+    board* actual;
     int count = 1;
 
     before_fen = "rnb1kbnr/pppp1ppp/8/4p3/4PP1q/6P1/PPPP3P/RNBQKBNR b KQkq - 0 1";
-    after_fen = "rnb1kbnr/pppp1ppp/8/4p3/4PP2/6q1/PPPP3P/RNBQKBNR w KQkq - 0 2";
+    expected_fen = "rnb1kbnr/pppp1ppp/8/4p3/4PP2/6q1/PPPP3P/RNBQKBNR w KQkq - 0 2";
     before = parse_fen(before_fen);
-    after = parse_fen(after_fen);
+    expected = parse_fen(expected_fen);
 
     move m = 
     {
@@ -48,20 +51,28 @@ void test_make_move()
         .origin = start<<39,
         .target = start<<46
     };
+
     print_move(m);
+    printf("\n");
+
     printf("before\n");
     print_board(before);
     printf("\n");
-    make_move(before, m);
-    printf("actual:\n");
-    print_board(before);
-    printf("expected:\n");
-    print_board(after);
-    printf("black queen bitboard:\n");
-    print_bitboard(before->black_queen);
-    printf("white queen bitboard:\n");
-    print_bitboard(before->white_queen);
-    assert_board_equality(before, after, count++);
+
+    actual = make_move(before, m);
+
+    printf("actual after:\n");
+    print_board(actual);
+    printf("\n");
+
+    printf("expected after:\n");
+    print_board(expected);
+
+    assert_board_equality(actual, expected, count++);
+
+    free(before);
+    free(expected);
+    free(actual);
 }
 
 void test_is_king_checked()
@@ -262,6 +273,8 @@ void test_is_king_checked()
     fen = "8/8/8/2n5/4K3/8/8/8 b - -";
     b = parse_fen(fen);
     assert(is_king_checked(b), 1, count++);
+
+    free(b);
 }
 
 void assert(int actual, int expected, int count)

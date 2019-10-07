@@ -43,14 +43,14 @@ void main()
     //print_moves(test2);
     //return;
 
-    run_tests();
+    //run_tests();
 
     printf("yeah\n");
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 2);
-    print_move(found_move);
+    //move found_move = pick_move(b2, 2);
+    //print_move(found_move);
     printf("\n");
     printf("\n");
     printf("\n");

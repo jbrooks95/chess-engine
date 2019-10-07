@@ -6,6 +6,7 @@
 board* parse_fen(char* fen)
 {
     board* b = malloc(sizeof(board));
+    int start = (bitboard) 1;
 
     // parse piece locations
     int shift_value = 0; 
@@ -96,7 +97,7 @@ board* parse_fen(char* fen)
         char file = current_char;
         current_char = fen[++i];
         char rank = current_char;
-        b->en_passant = get_shift_value(file, rank);
+        b->en_passant = start << get_shift_value(file, rank);
     }
     current_char = fen[++i]; // move past dash
     if(current_char != '\0') // check if end of string

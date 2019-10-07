@@ -6,7 +6,7 @@
 typedef struct board 
 {
     int to_move; // 0 if white to move, 1 if black to move
-    int en_passant; // shift value of the target en passant square if exists
+    int en_passant; // bitboard mask of the target en passant square if exists
     int castling; // 4-bit binary value that maps to FEN KQkq
     int halfmove_clock; // count of halfmoves since last capture or pawn advance
     int fullmove_count; // starts at 1, increments after black's move

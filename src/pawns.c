@@ -64,8 +64,7 @@ void generate_pawn_moves(move_list* list, board* b)
                         //handle en passant
                         if(b->en_passant != -1)
                         {
-                            bitboard en_passant = start << b->en_passant;
-                            if(shift_up_left(mask) & en_passant)
+                            if(shift_up_left(mask) & b->en_passant)
                             {
                                 move m = 
                                 {
@@ -126,8 +125,7 @@ void generate_pawn_moves(move_list* list, board* b)
                         //handle en passant
                         if(b->en_passant != -1)
                         {
-                            bitboard en_passant = start << b->en_passant;
-                            if(shift_up_right(mask) & en_passant)
+                            if(shift_up_right(mask) & b->en_passant)
                             {
                                 move m = 
                                 {
@@ -246,8 +244,7 @@ void generate_pawn_moves(move_list* list, board* b)
                         //handle en passant
                         if(b->en_passant != -1)
                         {
-                            bitboard en_passant = start << b->en_passant;
-                            if(shift_down_left(mask) & en_passant)
+                            if(shift_down_left(mask) & b->en_passant)
                             {
                                 move m = 
                                 {
@@ -308,8 +305,7 @@ void generate_pawn_moves(move_list* list, board* b)
                         //handle en passant
                         if(b->en_passant != -1)
                         {
-                            bitboard en_passant = start << b->en_passant;
-                            if(shift_down_right(mask) & en_passant)
+                            if(shift_down_right(mask) & b->en_passant)
                             {
                                 move m = 
                                 {
