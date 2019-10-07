@@ -21,32 +21,32 @@ board* make_move(board* b, move m)
         {
             if(m.is_en_passant)
             {
-                b->black_pawns = b->black_pawns ^ shift_down(m.target);
+                b->black_pawns ^= shift_down(m.target);
             }
             else
             {
-                b->black_pawns ^= m.target;
-                b->black_knights ^= m.target;
-                b->black_bishops ^= m.target;
-                b->black_rooks ^= m.target;
-                b->black_queen ^= m.target;
-                //b->black_king ^= m.target; //should not occur
+                if(b->black_pawns & m.target) b->black_pawns ^= m.target;
+                if(b->black_knights & m.target) b->black_knights ^= m.target;
+                if(b->black_bishops & m.target) b->black_bishops ^= m.target;
+                if(b->black_rooks & m.target) b->black_rooks ^= m.target;
+                if(b->black_queen & m.target) b->black_queen ^= m.target;
+                //if(b->black_king & m.target) b->black_king ^= m.target; //should not occur
             }
         }
         else // black to move
         {
-         if(m.is_en_passant)
+            if(m.is_en_passant)
             {
-                b->white_pawns = b->white_pawns ^ shift_up(m.target);
+                b->white_pawns ^= shift_up(m.target);
             }
             else
             {
-                b->white_pawns ^= m.target;
-                b->white_knights ^= m.target;
-                b->white_bishops ^= m.target;
-                b->white_rooks ^= m.target;
-                b->white_queen ^= m.target;
-                //b->white_king ^= m.target; //should not occur
+                if(b->white_pawns & m.target) b->white_pawns ^= m.target;
+                if(b->white_knights & m.target) b->white_knights ^= m.target;
+                if(b->white_bishops & m.target) b->white_bishops ^= m.target;
+                if(b->white_rooks & m.target) b->white_rooks ^= m.target;
+                if(b->white_queen & m.target) b->white_queen ^= m.target;
+                //if(b->white_king & m.target) b->white_king ^= m.target; //should not occur
             }
         }
     }
