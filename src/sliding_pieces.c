@@ -46,6 +46,7 @@ void slide_up(move_list* list, board* b, bitboard enemy_pieces, char piece, bitb
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up(current)
@@ -60,6 +61,7 @@ void slide_up(move_list* list, board* b, bitboard enemy_pieces, char piece, bitb
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up(current)
@@ -95,6 +97,7 @@ void slide_down(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down(current)
@@ -109,6 +112,7 @@ void slide_down(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down(current)
@@ -144,6 +148,7 @@ void slide_right(move_list* list, board* b, bitboard enemy_pieces, char piece, b
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_right(current)
@@ -158,6 +163,7 @@ void slide_right(move_list* list, board* b, bitboard enemy_pieces, char piece, b
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_right(current)
@@ -193,6 +199,7 @@ void slide_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_left(current)
@@ -207,6 +214,7 @@ void slide_left(move_list* list, board* b, bitboard enemy_pieces, char piece, bi
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_left(current)
@@ -242,6 +250,7 @@ void slide_up_right(move_list* list, board* b, bitboard enemy_pieces, char piece
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up_right(current)
@@ -256,6 +265,7 @@ void slide_up_right(move_list* list, board* b, bitboard enemy_pieces, char piece
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up_right(current)
@@ -291,6 +301,7 @@ void slide_down_right(move_list* list, board* b, bitboard enemy_pieces, char pie
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down_right(current)
@@ -305,6 +316,7 @@ void slide_down_right(move_list* list, board* b, bitboard enemy_pieces, char pie
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down_right(current)
@@ -340,6 +352,7 @@ void slide_down_left(move_list* list, board* b, bitboard enemy_pieces, char piec
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down_left(current)
@@ -354,6 +367,7 @@ void slide_down_left(move_list* list, board* b, bitboard enemy_pieces, char piec
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_down_left(current)
@@ -389,6 +403,7 @@ void slide_up_left(move_list* list, board* b, bitboard enemy_pieces, char piece,
                     .is_capture = 0,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up_left(current)
@@ -403,6 +418,7 @@ void slide_up_left(move_list* list, board* b, bitboard enemy_pieces, char piece,
                     .is_capture = 1,
                     .is_en_passant = 0,
                     .promotion = 0,
+                    .castling = 'x',
                     .piece = piece,
                     .origin = origin,
                     .target = shift_up_left(current)

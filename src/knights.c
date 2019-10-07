@@ -22,6 +22,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_left(mask)
@@ -35,6 +36,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_left(mask)
@@ -52,6 +54,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_right(mask)
@@ -65,6 +68,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_right(mask)
@@ -82,6 +86,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_left_left(mask)
@@ -95,6 +100,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_left_left(mask)
@@ -112,6 +118,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_right_right(mask)
@@ -125,6 +132,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_right_right(mask)
@@ -142,6 +150,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_left(mask)
@@ -155,6 +164,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_left(mask)
@@ -172,6 +182,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_right(mask)
@@ -185,6 +196,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_right(mask)
@@ -202,6 +214,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_left_left(mask)
@@ -215,6 +228,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_left_left(mask)
@@ -232,6 +246,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_right_right(mask)
@@ -245,6 +260,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_right_right(mask)
@@ -275,6 +291,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_left(mask)
@@ -288,6 +305,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_left(mask)
@@ -305,6 +323,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_right(mask)
@@ -318,6 +337,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_up_right(mask)
@@ -335,6 +355,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_left_left(mask)
@@ -348,6 +369,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_left_left(mask)
@@ -365,6 +387,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_right_right(mask)
@@ -378,6 +401,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_up_right_right(mask)
@@ -395,6 +419,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_left(mask)
@@ -408,6 +433,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_left(mask)
@@ -425,6 +451,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_right(mask)
@@ -438,6 +465,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_down_right(mask)
@@ -455,6 +483,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_left_left(mask)
@@ -468,6 +497,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_left_left(mask)
@@ -485,6 +515,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 0,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_right_right(mask)
@@ -498,6 +529,7 @@ void generate_knight_moves(move_list* list, board* b)
                                 .is_capture = 1,
                                 .is_en_passant = 0,
                                 .promotion = 0,
+                                .castling = 'x',
                                 .piece = 'N',
                                 .origin = mask,
                                 .target = shift_down_right_right(mask)

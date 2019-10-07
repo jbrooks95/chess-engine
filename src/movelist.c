@@ -52,6 +52,21 @@ void print_moves(move_list* list)
 void print_move(move m)
 {
     //todo Nbxd4 Nexd4
+    switch(m.castling)
+    {
+        case 'K':
+            printf("O-O");
+            return;
+        case 'k':
+            printf("O-O");
+            return;
+        case 'Q':
+            printf("O-O-O");
+            return;
+        case 'q':
+            printf("O-O-O");
+            return;
+    }
     if(m.piece != 'P' && m.piece != 'p')
     {
         printf("%c", to_upper(m.piece));

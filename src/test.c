@@ -43,6 +43,7 @@ void test_make_move()
         .is_capture = 1,
         .is_en_passant = 0,
         .promotion = 0,
+        .castling = 'x',
         .piece = 'q',
         .origin = start<<24,
         .target = start<<17

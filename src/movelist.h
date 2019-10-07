@@ -4,11 +4,16 @@
 #include <bitboard.h>
 #include <board.h>
 
+// 'K' White kingside castle
+// 'Q' White queenside castle
+// 'k' Black kingside castle
+// 'q' Black queenside castle
 typedef struct move
 {
     int is_capture;
     int is_en_passant;
     int promotion; // 0 if none, 1 if queen, 2 if rook, 3 if bishop, 4 if knight
+    char castling; // 'K', 'Q', 'k', or 'q' which maps to the KQkq in FEN
     char piece; 
     bitboard origin; // origin square value
     bitboard target; // target square value
