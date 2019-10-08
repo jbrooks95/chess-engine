@@ -19,6 +19,8 @@ board* make_move(board* original_b, move m)
 
     if(m.castling == 'K' || m.castling == 'k' || m.castling == 'Q' || m.castling == 'q')
     {
+        free(b);
+        return NULL;
         //todo add castling
     }
     else
@@ -156,6 +158,7 @@ board* make_move(board* original_b, move m)
     }
     if(is_king_checked(b)) // check move legality
     {
+        free(b);
         return NULL;
     }
     return b;
@@ -185,10 +188,12 @@ int is_king_checked(board* b)
         {
             if(m.target & king)
             {
+                free_list(list);
                 return 1;
             }
         }
         current = current->next;
     }
+    free_list(list);
     return 0;
 }

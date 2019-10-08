@@ -17,9 +17,9 @@ void main()
     printf("\n");
     printf("\n");
 
-    board* b = init_board();
-    print_board(b);
-    printf("\n");
+    //board* b = init_board();
+    //print_board(b);
+    //printf("\n");
 
     char* fen = "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2";
     //char* fen2 = "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2";
@@ -35,12 +35,12 @@ void main()
     //char* fen2 = "rnbqkb1r/pppppppp/8/4N3/4n3/8/PPPPPPPP/RNBQKB1R b KQkq - 4 3";
     char* fen2 = "r3k2r/pbppqppp/1pnb1n2/1B2p3/4P3/1PNP1N2/P1PBQPPP/R3K2R b KQkq - 2 9";
     board* b2 = parse_fen(fen2);
-    print_board(b2);
+    //print_board(b2);
     printf("\n");
 
 
-    move_list* test2 = generate_moves(b2);
-    print_moves(test2);
+    //move_list* test2 = generate_moves(b2);
+    //print_moves(test2);
     //return;
 
     //run_tests();
@@ -49,15 +49,15 @@ void main()
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 2);
+    move found_move = pick_move(b2, 4);
     print_move(found_move);
     printf("\n");
     printf("\n");
     printf("\n");
     printf("\n");
 
-     return;
-    int eval = evaluate(b);
+    return;
+    int eval = evaluate(b2);
     printf("evaluation = %d", eval);
     printf("\n");
     printf("\n");

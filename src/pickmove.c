@@ -1,6 +1,7 @@
 #include <movelist.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <pickmove.h>
 #include <evaluate.h>
 #include <movegen.h>
@@ -51,7 +52,9 @@ move pick_move(board* b, int search_depth)
             }
         }
         current = current->next;
+        free(new_position);
     }
+    free_list(list);
     return best_move;
 }
 
@@ -77,10 +80,16 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
                 int value = minimax(new_position, depth+1, max_depth, is_maximizing_player, alpha, beta);
                 best_val = max(best_val, value);
                 beta = max(beta, best_val);
-                if(beta <= alpha) break;
+                if(beta <= alpha)
+                {
+                    free(new_position);
+                    break;
+                }
             }
             current = current->next;
+            free(new_position);
         }
+        free_list(list);
         return best_val;
     }
     else //black to play
@@ -97,10 +106,16 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
                 int value = minimax(new_position, depth+1, max_depth, is_maximizing_player, alpha, beta);
                 best_val = min(best_val, value);
                 beta = min(beta, best_val);
-                if(beta <= alpha) break;
+                if(beta <= alpha)
+                {
+                    free(new_position);
+                    break;
+                }
             }
             current = current->next;
+            free(new_position);
         }
+        free_list(list);
         return best_val;
     }
 }
