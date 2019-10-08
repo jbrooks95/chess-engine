@@ -18,6 +18,7 @@ int evaluate(board* b)
 int count_material(board* b)
 {
     int count = 0;
+    count += K_VAL*(count_bits(b->white_king) - count_bits(b->black_king));
     count += Q_VAL*(count_bits(b->white_queen) - count_bits(b->black_queen));
     count += B_VAL*(count_bits(b->white_bishops) - count_bits(b->black_bishops));
     count += N_VAL*(count_bits(b->white_knights) - count_bits(b->black_knights));

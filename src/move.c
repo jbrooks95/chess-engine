@@ -41,7 +41,7 @@ board* make_move(board* original_b, move m)
                     if(b->black_bishops & m.target) b->black_bishops ^= m.target;
                     if(b->black_rooks & m.target) b->black_rooks ^= m.target;
                     if(b->black_queen & m.target) b->black_queen ^= m.target;
-                    //if(b->black_king & m.target) b->black_king ^= m.target; //should not occur
+                    if(b->black_king & m.target) b->black_king ^= m.target; //should not occur
                 }
             }
             else // black to move
@@ -57,7 +57,7 @@ board* make_move(board* original_b, move m)
                     if(b->white_bishops & m.target) b->white_bishops ^= m.target;
                     if(b->white_rooks & m.target) b->white_rooks ^= m.target;
                     if(b->white_queen & m.target) b->white_queen ^= m.target;
-                    //if(b->white_king & m.target) b->white_king ^= m.target; //should not occur
+                    if(b->white_king & m.target) b->white_king ^= m.target; //should not occur
                 }
             }
         }

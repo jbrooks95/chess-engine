@@ -40,7 +40,7 @@ move pick_move(board* b, int search_depth)
             int result = minimax(new_position, 0, search_depth, is_maximizing_player, INT_MIN, INT_MAX);
             printf("current: ");
             print_move(current->data);
-            printf(" result: %d\n\n", result);
+            printf(" result: %d\n", result);
             if(is_maximizing_player)
             {
                 if(result > best_val)
@@ -84,9 +84,9 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             board* new_position = make_move(b, current->data);
             if(new_position != NULL) //if move was legal
             {
-                int value = minimax(new_position, depth+1, max_depth, is_maximizing_player, alpha, beta);
+                int value = minimax(new_position, depth+1, max_depth, 0, alpha, beta);
                 best_val = max(best_val, value);
-                alpha = max(beta, best_val);
+                alpha = max(alpha, best_val);
                 if(beta <= alpha)
                 {
                     free(new_position);
@@ -97,6 +97,7 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             free(new_position);
         }
         free_list(list);
+        //todo check for checkmate here
         return best_val;
     }
     else //black to play
@@ -110,7 +111,7 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             board* new_position = make_move(b, current->data);
             if(new_position != NULL) //if move was legal
             {
-                int value = minimax(new_position, depth+1, max_depth, is_maximizing_player, alpha, beta);
+                int value = minimax(new_position, depth+1, max_depth, 1, alpha, beta);
                 best_val = min(best_val, value);
                 beta = min(beta, best_val);
                 if(beta <= alpha)

@@ -49,7 +49,7 @@ void main()
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 1);
+    move found_move = pick_move(b2, 6);
     print_move(found_move);
     printf("\n");
     printf("\n");
