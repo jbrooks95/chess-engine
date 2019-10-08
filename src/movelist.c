@@ -9,6 +9,7 @@ move_list* init_list()
 {
     move_list* list = malloc(sizeof(move_list));
     list->head = NULL; 
+    list->tail = NULL; 
     return list;
 }
 
@@ -16,8 +17,26 @@ void add_move(move_list* list, move m)
 {
     move_node* new_node = malloc(sizeof(move_node));
     new_node->data = m;
-    new_node->next = list->head;
-    list->head = new_node;
+    if(list->head) // list is not empty
+    {
+        if(m.is_capture)
+        {
+            new_node->next = list->head;
+            list->head = new_node;
+        }
+        else
+        {
+            new_node->next = NULL;
+            list->tail->next = new_node;
+            list->tail = new_node;
+        }
+    }
+    else
+    {
+        new_node->next = NULL;
+        list->head = new_node;
+        list->tail = new_node;
+    }
 }
 
 int isEmpty(move_list* list)

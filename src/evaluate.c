@@ -3,11 +3,12 @@
 #include <evaluate.h>
 
 // values for each piece
-const int Q_VAL = 9;
-const int B_VAL = 3;
-const int N_VAL = 3;
-const int R_VAL = 5;
-const int P_VAL = 1;
+const int K_VAL = 999999999;
+const int Q_VAL = 900;
+const int B_VAL = 350;
+const int N_VAL = 300;
+const int R_VAL = 500;
+const int P_VAL = 100;
 
 int evaluate(board* b)
 {

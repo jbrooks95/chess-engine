@@ -14,6 +14,7 @@ int max(int, int);
 
 move pick_move(board* b, int search_depth)
 {
+    printf("original eval: %d\n", evaluate(b));
     int is_maximizing_player;
     int best_val;
     if(!(b->to_move)) //white to move
@@ -26,6 +27,7 @@ move pick_move(board* b, int search_depth)
         is_maximizing_player = 0;
         best_val = INT_MAX;
     }
+    printf("best val %d\n", best_val);
     move best_move;
 
     move_list* list = generate_moves(b);
@@ -36,10 +38,14 @@ move pick_move(board* b, int search_depth)
         if(new_position != NULL) //if move was legal
         {
             int result = minimax(new_position, 0, search_depth, is_maximizing_player, INT_MIN, INT_MAX);
+            printf("current: ");
+            print_move(current->data);
+            printf(" result: %d\n\n", result);
             if(is_maximizing_player)
             {
                 if(result > best_val)
                 {
+                    best_val = result;
                     best_move = current->data;
                 }
             }
@@ -47,6 +53,7 @@ move pick_move(board* b, int search_depth)
             {
                 if(result < best_val)
                 {
+                    best_val = result;
                     best_move = current->data;
                 }
             }
@@ -79,7 +86,7 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             {
                 int value = minimax(new_position, depth+1, max_depth, is_maximizing_player, alpha, beta);
                 best_val = max(best_val, value);
-                beta = max(beta, best_val);
+                alpha = max(beta, best_val);
                 if(beta <= alpha)
                 {
                     free(new_position);

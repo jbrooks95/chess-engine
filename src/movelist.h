@@ -28,6 +28,7 @@ typedef struct move_node
 typedef struct move_list
 {
     move_node* head;
+    move_node* tail;
 } move_list;
 
 /*
