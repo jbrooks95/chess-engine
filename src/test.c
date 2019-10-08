@@ -27,7 +27,7 @@ void run_tests()
 
 void test_make_move()
 {
-    printf("Test: move\n");
+    printf("\nTest: make_move\n");
     bitboard start = (bitboard) 1;
     char* before_fen;
     char* expected_fen;
@@ -38,8 +38,8 @@ void test_make_move()
 
     before_fen = "rnb1kbnr/pppp1ppp/8/4p3/4PP1q/6P1/PPPP3P/RNBQKBNR b KQkq - 0 1";
     expected_fen = "rnb1kbnr/pppp1ppp/8/4p3/4PP2/6q1/PPPP3P/RNBQKBNR w KQkq - 0 2";
-    before = parse_fen(before_fen);
     expected = parse_fen(expected_fen);
+    before = parse_fen(before_fen);
 
     move m = 
     {
@@ -52,21 +52,22 @@ void test_make_move()
         .target = start<<46
     };
 
-    print_move(m);
-    printf("\n");
+    //print_move(m);
+    //printf("\n");
 
-    printf("before\n");
-    print_board(before);
-    printf("\n");
+    //printf("before\n");
+    //print_board(before);
+    //print_bitboard(before->black_knights);
+    //printf("\n");
 
     actual = make_move(before, m);
 
-    printf("actual after:\n");
-    print_board(actual);
-    printf("\n");
+    //printf("actual after:\n");
+    //print_board(actual);
+    //printf("\n");
 
-    printf("expected after:\n");
-    print_board(expected);
+    //printf("expected after:\n");
+    //print_board(expected);
 
     assert_board_equality(actual, expected, count++);
 

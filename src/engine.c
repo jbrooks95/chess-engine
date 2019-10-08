@@ -40,10 +40,10 @@ void main()
 
 
     move_list* test2 = generate_moves(b2);
-    //print_moves(test2);
+    print_moves(test2);
     //return;
 
-    //run_tests();
+    run_tests();
 
     printf("yeah\n");
     printf("\n");
