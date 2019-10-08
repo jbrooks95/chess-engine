@@ -16,4 +16,7 @@ board* make_move(board* b, move m);
  */
 int is_king_checked(board* b);
 
+int is_white_king_checked(board* b);
+int is_black_king_checked(board* b);
+
 #endif

@@ -33,7 +33,9 @@ void main()
     //char* fen2 = "rnbqkbnr/p2p1p1P/2p5/3Pp1B1/P3P3/7P/1Pp3P1/RN1QKBNR b KQkq - 1 11";
     //char* fen2 = "rnb1kbnr/pp1q1Q2/6pp/2ppP3/P3P3/2N5/1PPB2PP/R3KBNR b KQkq - 1 10";
     //char* fen2 = "rnbqkb1r/pppppppp/8/4N3/4n3/8/PPPPPPPP/RNBQKB1R b KQkq - 4 3";
-    char* fen2 = "2k5/2p5/1p1R1p1p/8/6K1/1P6/P4PP1/8 b - - 1 27";
+    //char* fen2 = "2k5/2p5/1p1R1p1p/8/6K1/1P6/P4PP1/8 b - - 1 27";
+    //char* fen2 = "rnbqkb1r/pp1p1ppp/2p2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 4";
+    char* fen2 = "rnbqkb1r/pp1p1Qpp/2p2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4";
     board* b2 = parse_fen(fen2);
     //print_board(b2);
     printf("\n");
@@ -45,11 +47,21 @@ void main()
 
     //run_tests();
 
+    printf("\n");
+    printf("\n");
+    printf("\n");
+    printf("yeah\n");
+    char* fen3 = "nbqkb1r/pp1p1Qpp/2p2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4";
+    board* b3 = parse_fen(fen3);
+    move_list* test3 = generate_moves(b3);
+    print_moves(test3);
+    board* new = make_move(b3, test3->head->data);
+    if(new == NULL) printf("horray\n");
     printf("yeah\n");
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 6);
+    move found_move = pick_move(b2, 1);
     print_move(found_move);
     printf("\n");
     printf("\n");

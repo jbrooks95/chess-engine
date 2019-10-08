@@ -1,5 +1,6 @@
 #include <move.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <static_bitboards.h>
 #include <movegen.h>
 #include <movelist.h>
@@ -196,4 +197,43 @@ int is_king_checked(board* b)
     }
     free_list(list);
     return 0;
+}
+
+
+int is_white_king_checked(board* b)
+{
+    int ret_val;
+    int original_to_move = b->to_move;
+    b->to_move = 1;
+
+    if(is_king_checked(b))
+    {
+        ret_val = 1;
+    }
+    else
+    {
+        ret_val = 0;
+    }
+
+    b->to_move = original_to_move;
+    return ret_val;
+}
+
+int is_black_king_checked(board* b)
+{
+    int ret_val;
+    int original_to_move = b->to_move;
+    b->to_move = 0;
+
+    if(is_king_checked(b))
+    {
+        ret_val = 1;
+    }
+    else
+    {
+        ret_val = 0;
+    }
+
+    b->to_move = original_to_move;
+    return ret_val;
 }

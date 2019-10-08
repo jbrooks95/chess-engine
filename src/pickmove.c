@@ -19,16 +19,26 @@ move pick_move(board* b, int search_depth)
     int best_val;
     if(!(b->to_move)) //white to move
     {
-        is_maximizing_player = 1;
+        is_maximizing_player = 1; 
         best_val = INT_MIN;
     }
     else //black to move
     {
-        is_maximizing_player = 0;
+        is_maximizing_player = 1;
         best_val = INT_MAX;
     }
     printf("best val %d\n", best_val);
-    move best_move;
+
+    move best_move = 
+    {
+        .is_capture = 0,
+        .is_en_passant = 0,
+        .promotion = 0,
+        .castling = 'x',
+        .piece = '#',
+        .origin = 0,
+        .target = 0
+    };
 
     move_list* list = generate_moves(b);
     move_node* current = list->head;
@@ -37,10 +47,10 @@ move pick_move(board* b, int search_depth)
         board* new_position = make_move(b, current->data);
         if(new_position != NULL) //if move was legal
         {
-            int result = minimax(new_position, 0, search_depth, is_maximizing_player, INT_MIN, INT_MAX);
+            int result = minimax(new_position, 0, search_depth, !is_maximizing_player, INT_MIN, INT_MAX);
             printf("current: ");
             print_move(current->data);
-            printf(" result: %d\n", result);
+            printf(" result: %d ", result);
             if(is_maximizing_player)
             {
                 if(result > best_val)
@@ -57,6 +67,9 @@ move pick_move(board* b, int search_depth)
                     best_move = current->data;
                 }
             }
+            printf(" current best move: ");
+            print_move(best_move);
+            printf("\n");
         }
         current = current->next;
         free(new_position);
@@ -96,8 +109,20 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             current = current->next;
             free(new_position);
         }
+
+        if(best_val == INT_MIN) //no legal moves found
+        {
+            if(!is_white_king_checked(b))
+            {
+                //stalemate
+                int value = 0;
+                best_val = max(best_val, value);
+                
+            }
+            //else checkmate
+        }
+
         free_list(list);
-        //todo check for checkmate here
         return best_val;
     }
     else //black to play
@@ -123,6 +148,19 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             current = current->next;
             free(new_position);
         }
+
+        if(best_val == INT_MAX) //no legal moves found
+        {
+            if(!is_black_king_checked(b))
+            {
+                //stalemate
+                int value = 0;
+                best_val = min(best_val, value);
+                
+            }
+            //else checkmate
+        }
+
         free_list(list);
         return best_val;
     }

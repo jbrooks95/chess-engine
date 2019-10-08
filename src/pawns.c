@@ -205,7 +205,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                 .is_en_passant = 0,
                                 .promotion = 0,
                                 .castling = 'x',
-                                .piece = 'P',
+                                .piece = 'p',
                                 .origin = mask,
                                 .target = shift_down(mask)
                             };
@@ -225,7 +225,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                 .is_en_passant = 0,
                                 .promotion = 1,
                                 .castling = 'x',
-                                .piece = 'P',
+                                .piece = 'p',
                                 .origin = mask,
                                 .target = shift_down(mask)
                             };
@@ -252,7 +252,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 1,
                                     .promotion = 0,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_left(mask)
                                 };
@@ -270,7 +270,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 0,
                                     .promotion = 0,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_left(mask)
                                 };
@@ -285,7 +285,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 0,
                                     .promotion = 1,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_left(mask)
                                 };
@@ -313,7 +313,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 1,
                                     .promotion = 0,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_right(mask)
                                 };
@@ -331,7 +331,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 0,
                                     .promotion = 0,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_right(mask)
                                 };
@@ -346,7 +346,7 @@ void generate_pawn_moves(move_list* list, board* b)
                                     .is_en_passant = 0,
                                     .promotion = 1,
                                     .castling = 'x',
-                                    .piece = 'P',
+                                    .piece = 'p',
                                     .origin = mask,
                                     .target = shift_down_right(mask)
                                 };
