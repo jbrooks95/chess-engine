@@ -8,7 +8,15 @@
 #include <movelist.h>
 #include <test.h>
 
+//function prototypes
+void tester(void);
+
 void main()
+{
+    tester();
+}
+
+void tester()
 {
 
     bitboard test = (bitboard) 16777216;
@@ -35,7 +43,7 @@ void main()
     //char* fen2 = "rnbqkb1r/pppppppp/8/4N3/4n3/8/PPPPPPPP/RNBQKB1R b KQkq - 4 3";
     //char* fen2 = "2k5/2p5/1p1R1p1p/8/6K1/1P6/P4PP1/8 b - - 1 27";
     //char* fen2 = "rnbqkb1r/pp1p1ppp/2p2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 4";
-    char* fen2 = "rnbqkb1r/pp1p1Qpp/2p2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4";
+    char* fen2 = "rnbqkb1r/pppp1ppp/5n2/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 2 3";
     board* b2 = parse_fen(fen2);
     //print_board(b2);
     printf("\n");
@@ -61,7 +69,7 @@ void main()
     printf("\n");
     printf("\n");
     printf("\n");
-    move found_move = pick_move(b2, 1);
+    move found_move = pick_move(b2, 7);
     print_move(found_move);
     printf("\n");
     printf("\n");
