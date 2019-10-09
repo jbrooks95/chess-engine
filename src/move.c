@@ -20,9 +20,71 @@ board* make_move(board* original_b, move m)
 
     if(m.castling == 'K' || m.castling == 'k' || m.castling == 'Q' || m.castling == 'q')
     {
-        free(b);
-        return NULL;
-        //todo add castling
+        switch(m.castling)
+        {
+            case 'K': //white kingside
+                //set all squares to king to check for check
+                b->white_king |= start << 61; //insert
+                b->white_king |= start << 62; //insert
+                if(is_white_king_checked(b))
+                {
+                    free(b);
+                    return NULL;
+                }
+                b->white_king ^= start << 60; //remove
+                b->white_king ^= start << 61; //remove
+
+                b->white_rooks ^= start << 63;
+                b->white_rooks |= start << 61;
+                b->castling &= ~(3<<2); // remove castling rights
+                break;
+            case 'k': //black kingside
+                b->black_king |= start << 5; //insert
+                b->black_king |= start << 6; //insert
+                if(is_black_king_checked(b))
+                {
+                    free(b);
+                    return NULL;
+                }
+                b->black_king ^= start << 4; //remove
+                b->black_king ^= start << 5; //remove
+
+                b->black_rooks ^= start << 7;
+                b->black_rooks |= start << 5;
+                b->castling &= ~3; // remove castling rights
+                break;
+
+            case 'Q': //white queenside
+                b->white_king |= start << 58; //insert
+                b->white_king |= start << 59; //insert
+                if(is_white_king_checked(b))
+                {
+                    free(b);
+                    return NULL;
+                }
+                b->white_king ^= start << 59; //remove
+                b->white_king ^= start << 60; //remove
+
+                b->white_rooks ^= start << 56;
+                b->white_rooks |= start << 59;
+                b->castling &= ~(3<<2); // remove castling rights
+                break;
+            case 'q': //black queenside
+                b->black_king |= start << 2; //insert
+                b->black_king |= start << 3; //insert
+                if(is_white_king_checked(b))
+                {
+                    free(b);
+                    return NULL;
+                }
+                b->black_king ^= start << 3; //remove
+                b->black_king ^= start << 4; //remove
+
+                b->black_rooks ^= 1;
+                b->black_rooks |= start << 3;
+                b->castling &= ~3; // remove castling rights
+                break;
+        }
     }
     else
     {
