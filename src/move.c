@@ -129,19 +129,61 @@ board* make_move(board* original_b, move m)
         {
             case 'P':
                 b->white_pawns ^= m.origin; //remove
-                b->white_pawns |= m.target; //insert
-                if(shift_up(shift_up(m.origin) == m.target))
+                if(m.promotion)
                 {
-                    b->en_passant = shift_up(m.origin);
+                    switch(m.promotion)
+                    {
+                        case 1:
+                            b->white_queen |= m.target; //insert queen
+                            break;
+                        case 2:
+                            b->white_rooks |= m.target; //insert rook
+                            break;
+                        case 3:
+                            b->white_bishops |= m.target; //insert bishop
+                            break;
+                        case 4:
+                            b->white_knights |= m.target; //insert knight
+                            break;
+                    }
+                }
+                else
+                {
+                    b->white_pawns |= m.target; //insert
+                    if(shift_up(shift_up(m.origin) == m.target))
+                    {
+                        b->en_passant = shift_up(m.origin);
+                    }
                 }
                 b->halfmove_clock = 0;
                 break;
             case 'p':
                 b->black_pawns ^= m.origin; //remove
-                b->black_pawns |= m.target; //insert
-                if(shift_down(shift_down(m.origin) == m.target))
+                if(m.promotion)
                 {
-                    b->en_passant = shift_down(m.origin);
+                    switch(m.promotion)
+                    {
+                        case 1:
+                            b->black_queen |= m.target; //insert queen
+                            break;
+                        case 2:
+                            b->black_rooks |= m.target; //insert rook
+                            break;
+                        case 3:
+                            b->black_bishops |= m.target; //insert bishop
+                            break;
+                        case 4:
+                            b->black_knights |= m.target; //insert knight
+                            break;
+                    }
+                }
+                else
+                {
+                    b->black_pawns |= m.target; //insert
+                    if(shift_down(shift_down(m.origin) == m.target))
+                    {
+                        b->en_passant = shift_down(m.origin);
+                    }
                 }
                 b->halfmove_clock = 0;
                 break;
