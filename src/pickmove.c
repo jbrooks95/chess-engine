@@ -23,7 +23,7 @@ move pick_move(board* b, int search_depth)
     }
     else //black to move
     {
-        is_maximizing_player = 1;
+        is_maximizing_player = 0;
         best_val = INT_MAX;
     }
 
