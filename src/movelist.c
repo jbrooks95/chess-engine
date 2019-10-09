@@ -68,6 +68,14 @@ void print_moves(move_list* list)
     }
 }
 
+void print_move_squares(move m)
+{
+    printf(get_algebraic(m.origin));
+    printf("-");
+    printf(get_algebraic(m.target));
+    printf("\n");
+}
+
 void print_move(move m)
 {
     //todo Nbxd4 Nexd4

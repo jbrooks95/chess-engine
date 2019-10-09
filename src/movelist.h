@@ -64,6 +64,12 @@ void free_list(move_list* list);
 void print_moves(move_list* list);
 
 /*
+ * Prints the origin and target squares
+ * of move in algebraic notation
+ */
+void print_move_squares(move m);
+
+/*
  * Prints the algebraic represenation
  * of a move
  */

@@ -7,13 +7,46 @@
 #include <pickmove.h>
 #include <movelist.h>
 #include <test.h>
+#include <stdlib.h>
 
 //function prototypes
 void tester(void);
+void play(int);
 
-void main()
+#define MAX 1024
+
+int main(int argc, char *argv[])
 {
-    tester();
+    int depth = 6;
+    if(argc == 2)
+    {
+        if(argc == 2) depth = atoi(argv[1]);
+        play(depth);
+    }
+    else
+    {
+        printf("Error. Please use: ./engine <depth>\n");
+    }
+    return 0;
+}
+
+void play(int depth)
+{
+    char buffer[MAX];
+    board* b;
+    move found_move;
+
+    printf("Enter FEN: ");
+    while(fgets(buffer, MAX, stdin))
+    {
+        b = parse_fen(buffer);
+        found_move = pick_move(b, depth);
+        printf("Selected move: ");
+        print_move(found_move);
+        printf(", ");
+        print_move_squares(found_move);
+        printf("\nEnter FEN: ");
+    }
 }
 
 void tester()

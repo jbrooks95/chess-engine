@@ -14,7 +14,6 @@ int max(int, int);
 
 move pick_move(board* b, int search_depth)
 {
-    printf("original eval: %d\n", evaluate(b));
     int is_maximizing_player;
     int best_val;
     if(!(b->to_move)) //white to move
@@ -27,7 +26,6 @@ move pick_move(board* b, int search_depth)
         is_maximizing_player = 1;
         best_val = INT_MAX;
     }
-    printf("best val %d\n", best_val);
 
     move best_move = 
     {
@@ -48,7 +46,7 @@ move pick_move(board* b, int search_depth)
         if(new_position != NULL) //if move was legal
         {
             int result = minimax(new_position, 0, search_depth, !is_maximizing_player, INT_MIN, INT_MAX);
-            printf("current: ");
+            printf("move: ");
             print_move(current->data);
             printf(" result: %d ", result);
             if(is_maximizing_player)
@@ -67,7 +65,7 @@ move pick_move(board* b, int search_depth)
                     best_move = current->data;
                 }
             }
-            printf(" current best move: ");
+            printf(" current best: ");
             print_move(best_move);
             printf("\n");
         }

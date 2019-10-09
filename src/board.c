@@ -285,6 +285,7 @@ char* get_algebraic(bitboard b)
             if(start << i & b)
             {
                 shift_value = i;
+                break;
             }
             i++;
         }
