@@ -14,10 +14,7 @@ int max(int, int);
 
 move pick_move(board* b, int search_depth)
 {
-    int rand_max = 2;
-    //value used to add some randomization move selection
-    //will create a value between [1, rand_max]
-    int random = rand() % rand_max + 1; 
+    int rand_max = 3;
     int is_maximizing_player;
     int best_val;
     if(!(b->to_move)) //white to move
@@ -46,6 +43,11 @@ move pick_move(board* b, int search_depth)
     move_node* current = list->head;
     while(current != NULL)
     {
+        //value used to add some randomization move selection
+        //will create a value between [1, rand_max]
+        int random = rand() % rand_max + 1; 
+        printf("rand val: %d\n", random);
+
         board* new_position = make_move(b, current->data);
         if(new_position != NULL) //if move was legal
         {
