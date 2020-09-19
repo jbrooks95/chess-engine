@@ -11,14 +11,16 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
-const int CENTER_CONTROL_VAL = 20;
-const int EXTENDED_CENTER_CONTROL_VAL = 10;
+const int CENTER_CONTROL_VAL = 50;
+const int EXTENDED_CENTER_CONTROL_VAL = 25;
+const int DEVELOPMENT_VAL = 10;
 
 int evaluate(board* b)
 {
     int material = count_material(b);
     int center_control = evaluate_center_control(b);
-    return material + center_control;
+    int development = evaluate_piece_development(b);
+    return material + center_control + development;
 }
 
 int count_material(board* b)
@@ -42,6 +44,25 @@ int count_bits(bitboard bb)
         bb>>=1;
     }
     return count;
+}
+
+int evaluate_piece_development(board* b)
+{
+    int white_count = 0;
+    white_count += DEVELOPMENT_VAL * count_bits(b->white_knights & ~WHITE_KNIGHTS);
+    white_count += DEVELOPMENT_VAL * count_bits(b->white_bishops & ~WHITE_BISHOPS);
+    white_count += DEVELOPMENT_VAL * count_bits(b->white_queen & ~WHITE_QUEEN);
+    white_count += DEVELOPMENT_VAL * count_bits(b->white_rooks & ~WHITE_ROOKS);
+    white_count += DEVELOPMENT_VAL * count_bits(b->white_king & ~WHITE_KING);
+
+    int black_count = 0;
+    black_count += DEVELOPMENT_VAL * count_bits(b->black_knights & ~BLACK_KNIGHTS);
+    black_count += DEVELOPMENT_VAL * count_bits(b->black_bishops & ~BLACK_BISHOPS);
+    black_count += DEVELOPMENT_VAL * count_bits(b->black_queen & ~BLACK_QUEEN);
+    black_count += DEVELOPMENT_VAL * count_bits(b->black_rooks & ~BLACK_ROOKS);
+    black_count += DEVELOPMENT_VAL * count_bits(b->black_king & ~BLACK_KING);
+
+    return white_count - black_count;
 }
 
 int evaluate_center_control(board* b)

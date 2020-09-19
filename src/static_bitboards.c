@@ -91,6 +91,18 @@ const bitboard FILE_H = (bitboard) 1 << 7  | (bitboard) 1 << 15 |
                         (bitboard) 1 << 39 | (bitboard) 1 << 47 | 
                         (bitboard) 1 << 55 | (bitboard) 1 << 63;
 
+const bitboard WHITE_ROOKS = (bitboard) 1 << 56 | (bitboard) 1 << 63;
+const bitboard WHITE_KNIGHTS = (bitboard) 1 << 57 | (bitboard) 1 << 62;
+const bitboard WHITE_BISHOPS = (bitboard) 1 << 58 | (bitboard) 1 << 61;
+const bitboard WHITE_QUEEN = (bitboard) 1 << 59;
+const bitboard WHITE_KING = (bitboard) 1 << 60;
+
+const bitboard BLACK_ROOKS = (bitboard) 1 << 0 | (bitboard) 1 << 7;
+const bitboard BLACK_KNIGHTS = (bitboard) 1 << 1 | (bitboard) 1 << 6;
+const bitboard BLACK_BISHOPS = (bitboard) 1 << 2 | (bitboard) 1 << 5;
+const bitboard BLACK_QUEEN = (bitboard) 1 << 3;
+const bitboard BLACK_KING = (bitboard) 1 << 4;
+
 const bitboard CENTER = (bitboard) 1 << 27 | (bitboard) 1 << 28 |
                         (bitboard) 1 << 35 | (bitboard) 1 << 36;
 
