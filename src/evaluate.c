@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <evaluate.h>
+#include <square_control.h>
 
 // values for each piece
 const int K_VAL = 999999999;
@@ -12,7 +13,9 @@ const int P_VAL = 100;
 
 int evaluate(board* b)
 {
-    return count_material(b);
+    int material = count_material(b);
+    int center_control = evaluate_center_control(b);
+    return material + center_control;
 }
 
 int count_material(board* b)
@@ -27,7 +30,6 @@ int count_material(board* b)
     return count;
 }
 
-
 int count_bits(bitboard bb)
 {
     int count = 0;
@@ -37,4 +39,14 @@ int count_bits(bitboard bb)
         bb>>=1;
     }
     return count;
+}
+
+int evaluate_center_control(board* b)
+{
+    int original_to_move = b->to_move;
+    
+    get_white_control(b);
+    get_black_control(b);
+    
+    return 0;
 }

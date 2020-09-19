@@ -27,4 +27,12 @@ int count_material(board* b);
  */
 int count_bits(bitboard bb);
 
+int evaluate_center_control(board* b);
+
+int evaluate_piece_development(board* b);
+
+int evaluate_space(board* b);
+
+int evaluate_pawn_structure(board* b);
+
 #endif

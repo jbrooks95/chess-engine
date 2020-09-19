@@ -17,6 +17,7 @@ void play(int);
 
 int main(int argc, char *argv[])
 {
+    tester();
     int depth = 6;
     if(argc == 2)
     {
@@ -32,6 +33,7 @@ int main(int argc, char *argv[])
 
 void play(int depth)
 {
+    return;
     char buffer[MAX];
     board* b;
     move found_move;
@@ -85,38 +87,15 @@ void tester()
     //char* fen2 = "rnbqkb1r/pp1p1ppp/2p2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 0 4";
     char* fen2 = "rnbqkb1r/pppp1ppp/5n2/4p3/2B1P3/8/PPPP1PPP/RNBQK1NR w KQkq - 2 3";
     board* b2 = parse_fen(fen2);
-    //print_board(b2);
+    print_board(b2);
     printf("\n");
 
 
     move_list* test2 = generate_moves(b2);
-    print_moves(test2);
-    //return;
+    //print_moves(test2);
 
     //run_tests();
 
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("yeah\n");
-    char* fen3 = "nbqkb1r/pp1p1Qpp/2p2n2/4p3/2B1P3/8/PPPP1PPP/RNB1K1NR b KQkq - 0 4";
-    board* b3 = parse_fen(fen3);
-    move_list* test3 = generate_moves(b3);
-    print_moves(test3);
-    board* new = make_move(b3, test3->head->data);
-    if(new == NULL) printf("horray\n");
-    printf("yeah\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    move found_move = pick_move(b2, 7);
-    print_move(found_move);
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-
-    return;
     int eval = evaluate(b2);
     printf("evaluation = %d", eval);
     printf("\n");

@@ -29,6 +29,17 @@ void print_bitboard(bitboard b)
     }
 }
 
+int get_index_from_bitboard(bitboard b) 
+{
+    int i = 0;
+    while(i <= 63)
+    {
+        if(b >> i == 1) break;
+        i++;
+    }
+    return i;
+}
+
 /*
  * Checks if given square is 
  * vacant
