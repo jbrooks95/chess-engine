@@ -14,7 +14,7 @@ int max(int, int);
 
 move pick_move(board* b, int search_depth)
 {
-    int rand_max = 3;
+    int rand_max = 1;
     int is_maximizing_player;
     int best_val;
     if(!(b->to_move)) //white to move
@@ -61,7 +61,7 @@ move pick_move(board* b, int search_depth)
                     best_val = result;
                     best_move = current->data;
                 }
-                else if(result == best_val && random == rand_max)
+                else if(result == best_val && random == rand_max && current->data.piece != '#')
                 {
                     best_val = result;
                     best_move = current->data;
