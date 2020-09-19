@@ -10,8 +10,8 @@
  * of times a square is controlled by white or black.
  * The return array indices map to a bitboard.
  */
-int* get_white_control(board* b);
-int* get_black_control(board* b);
+int* get_white_control(board* b, int[]);
+int* get_black_control(board* b, int[]);
 
 void print_control_array(int[]);
 

@@ -17,7 +17,6 @@ void play(int);
 
 int main(int argc, char *argv[])
 {
-    tester();
     int depth = 6;
     if(argc == 2)
     {
@@ -33,7 +32,6 @@ int main(int argc, char *argv[])
 
 void play(int depth)
 {
-    return;
     char buffer[MAX];
     board* b;
     move found_move;

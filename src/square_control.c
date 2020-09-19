@@ -4,14 +4,13 @@
 #include <stdio.h>
 #include <movegen.h>
 
-int* get_control(int color, board* b);
+int* get_control(int color, board* b, int* control_array);
 void get_white_pawn_control(bitboard pawns, int* control_array);
 void get_black_pawn_control(bitboard pawns, int* control_array);
 void get_piece_control(int to_move, board* b, int* control_array);
 
-int* get_control(int color, board* b)
+int* get_control(int color, board* b, int control_array[])
 {
-    int control_array[64] = {0};
     if(color == 0)
     {
         get_white_pawn_control(b->white_pawns, control_array);
@@ -22,16 +21,17 @@ int* get_control(int color, board* b)
     }
     get_piece_control(color, b, control_array);
     print_control_array(control_array);
+    return control_array;
 }
 
-int* get_white_control(board* b)
+int* get_white_control(board* b, int control_array[])
 {
-    return get_control(0, b);
+    return get_control(0, b, control_array);
 }
 
-int* get_black_control(board* b)
+int* get_black_control(board* b, int control_array[])
 {
-    return get_control(1, b);
+    return get_control(1, b, control_array);
 }
 
 void print_control_array(int control_array[])

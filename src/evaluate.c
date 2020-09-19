@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <evaluate.h>
 #include <square_control.h>
+#include <static_bitboards.h>
 
 // values for each piece
 const int K_VAL = 999999999;
@@ -10,6 +11,8 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
+const int CENTER_CONTROL_VAL = 20;
+const int EXTENDED_CENTER_CONTROL_VAL = 10;
 
 int evaluate(board* b)
 {
@@ -43,10 +46,24 @@ int count_bits(bitboard bb)
 
 int evaluate_center_control(board* b)
 {
-    int original_to_move = b->to_move;
+    int count = 0;
+    int white_control[64] = {0};
+    int black_control[64] = {0};
+    get_white_control(b, white_control);
+    get_black_control(b, black_control);
+
+    int i;
+    for(i = 0; i < 63; i++)
+    {
+        if(CENTER >> i & 1)
+        {
+            count += CENTER_CONTROL_VAL*(white_control[i] - black_control[i]);
+        }
+        if(EXTENDED_CENTER >> i & 1)
+        {
+            count += EXTENDED_CENTER_CONTROL_VAL*(white_control[i] - black_control[i]);
+        }
+    }
     
-    get_white_control(b);
-    get_black_control(b);
-    
-    return 0;
+    return count;
 }
