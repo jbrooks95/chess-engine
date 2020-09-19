@@ -33,5 +33,7 @@ const bitboard CENTER;
 const bitboard EXTENDED_CENTER;
 const bitboard KINGSIDE;
 const bitboard QUEENSIDE;
+const bitboard BLACK_SIDE;
+const bitboard WHITE_SIDE;
 
 #endif

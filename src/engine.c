@@ -101,16 +101,16 @@ void tester()
     printf("\n");
     printf("\n");
 
-    /*
-    printf("rank1: ");
+    printf("white side: ");
     printf("\n");
-    print_bitboard(RANK_1);
+    print_bitboard(WHITE_SIDE);
     printf("\n");
 
-    printf("rank2: ");
+    printf("black side: ");
     printf("\n");
-    print_bitboard(RANK_2);
+    print_bitboard(BLACK_SIDE);
     printf("\n");
+    /*
 
     printf("rank3: ");
     printf("\n");

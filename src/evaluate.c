@@ -13,6 +13,7 @@ const int R_VAL = 500;
 const int P_VAL = 100;
 const int CENTER_CONTROL_VAL = 50;
 const int EXTENDED_CENTER_CONTROL_VAL = 25;
+const int ENEMY_TERRITORY_CONTROL_VAL = 35;
 const int DEVELOPMENT_VAL = 10;
 
 int evaluate(board* b)
