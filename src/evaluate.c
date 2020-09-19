@@ -11,11 +11,11 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
-const int CENTER_CONTROL_VAL = 30;
-const int EXTENDED_CENTER_CONTROL_VAL = 10;
-const int ENEMY_TERRITORY_CONTROL_VAL = 4;
-const int DEVELOPMENT_VAL = 30;
-const int CASTLE_VAL = 30;
+const int CENTER_CONTROL_VAL = 7;
+const int EXTENDED_CENTER_CONTROL_VAL = 3;
+const int ENEMY_TERRITORY_CONTROL_VAL = 2;
+const int DEVELOPMENT_VAL = 15;
+const int KING_SAFETY_VAL = 100;
 const int PAWN_ADVANCEMENT_VAL = 1;
 
 int evaluate(board* b)
@@ -87,15 +87,17 @@ int evaluate_king_safety(board* b)
 {
     int white_count = 0;
     int black_count = 0;
-    if(b->castling & 4 || b->castling & 8)
+    //encourage king leaving center files
+    //don't count c file because of castling
+    if(b->white_king & FILE_D || b->white_king & FILE_E ||
+            b->white_king & FILE_F)
     {
-        //white hasn't castled
-        white_count -= CASTLE_VAL;
+        white_count -= KING_SAFETY_VAL;
     }
-    if(b->castling & 1 || b->castling & 2)
+    if(b->black_king & FILE_D || b->black_king & FILE_E ||
+            b->black_king & FILE_F)
     {
-        //black hasn't castled
-        black_count -= CASTLE_VAL;
+        black_count -= KING_SAFETY_VAL;
     }
     return white_count - black_count;
 }
@@ -113,17 +115,18 @@ int count_bits(bitboard bb)
 
 int evaluate_piece_development(board* b)
 {
+    //favor bishop and knight development
     int white_count = 0;
     white_count += DEVELOPMENT_VAL * count_bits(b->white_knights & ~WHITE_KNIGHTS);
-    white_count += DEVELOPMENT_VAL * count_bits(b->white_bishops & ~WHITE_BISHOPS);
-    white_count += DEVELOPMENT_VAL * count_bits(b->white_queen & ~WHITE_QUEEN);
+    white_count += 2*DEVELOPMENT_VAL * count_bits(b->white_bishops & ~WHITE_BISHOPS);
+    white_count += 2*DEVELOPMENT_VAL * count_bits(b->white_queen & ~WHITE_QUEEN);
     white_count += DEVELOPMENT_VAL * count_bits(b->white_rooks & ~WHITE_ROOKS);
     white_count += DEVELOPMENT_VAL * count_bits(b->white_king & ~WHITE_KING);
 
     int black_count = 0;
     black_count += DEVELOPMENT_VAL * count_bits(b->black_knights & ~BLACK_KNIGHTS);
-    black_count += DEVELOPMENT_VAL * count_bits(b->black_bishops & ~BLACK_BISHOPS);
-    black_count += DEVELOPMENT_VAL * count_bits(b->black_queen & ~BLACK_QUEEN);
+    black_count += 2*DEVELOPMENT_VAL * count_bits(b->black_bishops & ~BLACK_BISHOPS);
+    black_count += 2*DEVELOPMENT_VAL * count_bits(b->black_queen & ~BLACK_QUEEN);
     black_count += DEVELOPMENT_VAL * count_bits(b->black_rooks & ~BLACK_ROOKS);
     black_count += DEVELOPMENT_VAL * count_bits(b->black_king & ~BLACK_KING);
 

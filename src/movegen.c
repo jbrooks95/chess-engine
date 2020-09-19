@@ -14,13 +14,13 @@ void generate_castling_moves(move_list* list, board* b);
 move_list* generate_moves(board* b)
 {
     move_list* list = init_list();
+    generate_castling_moves(list, b);
+    generate_knight_moves(list, b);
+    generate_bishop_moves(list, b);
     generate_pawn_moves(list, b);
     generate_queen_moves(list, b);
-    generate_bishop_moves(list, b);
-    generate_knight_moves(list, b);
     generate_rook_moves(list, b);
     generate_king_moves(list, b);
-    generate_castling_moves(list, b);
     return list;
 }
 
