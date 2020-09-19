@@ -11,11 +11,12 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
-const int CENTER_CONTROL_VAL = 15;
-const int EXTENDED_CENTER_CONTROL_VAL = 4;
-const int ENEMY_TERRITORY_CONTROL_VAL = 5;
-const int DEVELOPMENT_VAL = 15;
-const int CASTLE_VAL = 15;
+const int CENTER_CONTROL_VAL = 30;
+const int EXTENDED_CENTER_CONTROL_VAL = 10;
+const int ENEMY_TERRITORY_CONTROL_VAL = 4;
+const int DEVELOPMENT_VAL = 30;
+const int CASTLE_VAL = 30;
+const int PAWN_ADVANCEMENT_VAL = 1;
 
 int evaluate(board* b)
 {
@@ -23,7 +24,9 @@ int evaluate(board* b)
     int center_control = evaluate_square_control(b);
     int development = evaluate_piece_development(b);
     int king_safety = evaluate_king_safety(b);
-    return material + center_control + development + king_safety;
+    int pawn_structure = evaluate_pawn_structure(b);
+    int total = material + center_control + development + king_safety + pawn_structure;
+    return total;
 }
 
 int count_material(board* b)
@@ -36,6 +39,48 @@ int count_material(board* b)
     count += R_VAL*(count_bits(b->white_rooks) - count_bits(b->black_rooks));
     count += P_VAL*(count_bits(b->white_pawns) - count_bits(b->black_pawns));
     return count;
+}
+
+int evaluate_pawn_structure(board* b)
+{
+    //favor more advanced pawns
+    int white_count = 0;
+    int black_count = 0;
+    int i;
+    for(i = 0; i < 63; i++)
+    {
+        if(RANK_2 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->white_pawns & RANK_2)));
+            black_count += PAWN_ADVANCEMENT_VAL * (15 * (count_bits(b->black_pawns & RANK_2)));
+        }
+        if(RANK_3 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (1 * (count_bits(b->white_pawns & RANK_3)));
+            black_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->black_pawns & RANK_3)));
+        }
+        if(RANK_4 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (3 * (count_bits(b->white_pawns & RANK_4)));
+            black_count += PAWN_ADVANCEMENT_VAL * (6 * (count_bits(b->black_pawns & RANK_4)));
+        }
+        if(RANK_5 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (6 * (count_bits(b->white_pawns & RANK_5)));
+            black_count += PAWN_ADVANCEMENT_VAL * (3 * (count_bits(b->black_pawns & RANK_5)));
+        }
+        if(RANK_6 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->white_pawns & RANK_6)));
+            black_count += PAWN_ADVANCEMENT_VAL * (1 * (count_bits(b->black_pawns & RANK_6)));
+        }
+        if(RANK_7 >> i & 1)
+        {
+            white_count += PAWN_ADVANCEMENT_VAL * (15 * (count_bits(b->white_pawns & RANK_7)));
+            black_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->black_pawns & RANK_7)));
+        }
+    }
+    return white_count - black_count;
 }
 
 int evaluate_king_safety(board* b)
@@ -98,6 +143,8 @@ int evaluate_square_control(board* b)
     int i;
     for(i = 0; i < 63; i++)
     {
+        white_count += white_control[i];
+        black_count += black_control[i];
         if(CENTER >> i & 1)
         {
             count += CENTER_CONTROL_VAL*(white_control[i] - black_control[i]);

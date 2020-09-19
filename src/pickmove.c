@@ -51,9 +51,9 @@ move pick_move(board* b, int search_depth)
         if(new_position != NULL) //if move was legal
         {
             int result = minimax(new_position, 0, search_depth, !is_maximizing_player, INT_MIN, INT_MAX);
-            //printf("move: ");
-            //print_move(current->data);
-            //printf(" result: %d ", result);
+            printf("move: ");
+            print_move(current->data);
+            printf(" result: %d\n", result);
             if(is_maximizing_player)
             {
                 if(result > best_val)
@@ -81,7 +81,7 @@ move pick_move(board* b, int search_depth)
                 }
             }
         }
-        current = current->next;
+        current = current->next; 
         free(new_position);
     }
     free_list(list);
