@@ -19,7 +19,7 @@ const int DEVELOPMENT_VAL = 10;
 int evaluate(board* b)
 {
     int material = count_material(b);
-    int center_control = evaluate_center_control(b);
+    int center_control = evaluate_square_control(b);
     int development = evaluate_piece_development(b);
     return material + center_control + development;
 }
@@ -66,9 +66,11 @@ int evaluate_piece_development(board* b)
     return white_count - black_count;
 }
 
-int evaluate_center_control(board* b)
+int evaluate_square_control(board* b)
 {
     int count = 0;
+    int white_count = 0;
+    int black_count = 0;
     int white_control[64] = {0};
     int black_control[64] = {0};
     get_white_control(b, white_control);
@@ -85,7 +87,15 @@ int evaluate_center_control(board* b)
         {
             count += EXTENDED_CENTER_CONTROL_VAL*(white_control[i] - black_control[i]);
         }
+        if(WHITE_SIDE >> i & 1)
+        {
+            black_count += ENEMY_TERRITORY_CONTROL_VAL * black_control[i];
+        }
+        if(BLACK_SIDE >> i & 1)
+        {
+            white_count += ENEMY_TERRITORY_CONTROL_VAL * white_control[i];
+        }
     }
     
-    return count;
+    return count + (white_count - black_count);
 }
