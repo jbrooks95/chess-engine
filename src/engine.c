@@ -43,7 +43,7 @@ void play(int depth)
         found_move = pick_move(b, depth);
         if(found_move.piece == '#')
         {
-            printf("No moves. It's checkmate.");
+            printf("No moves. It's checkmate.\n");
         }
         else
         {
