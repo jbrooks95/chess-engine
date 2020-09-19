@@ -20,7 +20,6 @@ int* get_control(int color, board* b, int control_array[])
         get_black_pawn_control(b->black_pawns, control_array);
     }
     get_piece_control(color, b, control_array);
-    print_control_array(control_array);
     return control_array;
 }
 
