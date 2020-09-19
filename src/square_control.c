@@ -70,7 +70,7 @@ void get_piece_control(int to_move, board* b, int control_array[])
         }
         current = current->next;
     }
-    free(list);
+    free_list(list);
 
     b->to_move = original_to_move;
     b->white_pieces = original_white_pieces;
