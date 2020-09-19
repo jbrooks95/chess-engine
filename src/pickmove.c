@@ -50,7 +50,8 @@ move pick_move(board* b, int search_depth)
         board* new_position = make_move(b, current->data);
         if(new_position != NULL) //if move was legal
         {
-            int result = minimax(new_position, 0, search_depth, !is_maximizing_player, INT_MIN, INT_MAX);
+            int result = minimax(new_position, 0, search_depth, !is_maximizing_player, INT_MIN, INT_MAX, 
+                    0, 0, 0, 0);
             printf("move: ");
             print_move(current->data);
             printf(" result: %d\n", result);
@@ -88,12 +89,29 @@ move pick_move(board* b, int search_depth)
     return best_move;
 }
 
-int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int alpha, int beta)
+int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int alpha, int beta, int null_move,
+        int was_check, int was_capture, int from_leaf)
 {
     //if position is leaf node
     if(depth == max_depth)
     {
-        return evaluate(b);
+        if((was_capture || was_check) && !from_leaf)
+        {
+            //if the last move was check or capture, look 2 ply deeper
+            int value = minimax(b, 0, 2, !is_maximizing_player, alpha, beta, 1, was_check, was_capture, 1);
+            return value;
+        }
+        else if(!null_move)
+        {
+            //do null move on leaf nodes
+            b->to_move = !b->to_move;
+            int value = minimax(b, 0, 1, is_maximizing_player, alpha, beta, 1, was_check, was_capture, 1);
+            return value;
+        }
+        else
+        {
+            return evaluate(b);
+        }
     }
 
     if(is_maximizing_player) //white to play
@@ -107,7 +125,10 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             board* new_position = make_move(b, current->data);
             if(new_position != NULL) //if move was legal
             {
-                int value = minimax(new_position, depth+1, max_depth, 0, alpha, beta);
+                int is_capture = current->data.is_capture;
+                int is_check = is_black_king_checked(new_position);
+                int value = minimax(new_position, depth+1, max_depth, 0, alpha, beta, null_move,
+                        is_check, is_capture, from_leaf);
                 best_val = max(best_val, value);
                 alpha = max(alpha, best_val);
                 if(beta <= alpha)
@@ -146,7 +167,10 @@ int minimax(board* b, int depth, int max_depth, int is_maximizing_player, int al
             board* new_position = make_move(b, current->data);
             if(new_position != NULL) //if move was legal
             {
-                int value = minimax(new_position, depth+1, max_depth, 1, alpha, beta);
+                int is_capture = current->data.is_capture;
+                int is_check = is_white_king_checked(new_position);
+                int value = minimax(new_position, depth+1, max_depth, 1, alpha, beta, null_move,
+                        is_check, is_capture, from_leaf);
                 best_val = min(best_val, value);
                 beta = min(beta, best_val);
                 if(beta <= alpha)
