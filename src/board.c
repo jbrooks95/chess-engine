@@ -116,7 +116,6 @@ board* parse_fen(char* fen)
                 current_char = fen[++i];
             }
             b->halfmove_clock = atoi(value);
-            fprintf(stderr, "\n%d\n", b->halfmove_clock);
         }
         else
         {
@@ -135,7 +134,6 @@ board* parse_fen(char* fen)
                 current_char = fen[++i];
             }
             b->fullmove_count = atoi(value);
-            fprintf(stderr, "\n%d\n", b->fullmove_count);
         }
         else
         {
