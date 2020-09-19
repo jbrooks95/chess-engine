@@ -14,7 +14,7 @@ int max(int, int);
 
 move pick_move(board* b, int search_depth)
 {
-    int rand_max = 1;
+    int rand_max = 3;
     int is_maximizing_player;
     int best_val;
     if(!(b->to_move)) //white to move
