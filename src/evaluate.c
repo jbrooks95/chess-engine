@@ -11,11 +11,11 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
-const int CENTER_CONTROL_VAL = 7;
-const int EXTENDED_CENTER_CONTROL_VAL = 3;
+const int CENTER_CONTROL_VAL = 12;
+const int EXTENDED_CENTER_CONTROL_VAL = 4;
 const int ENEMY_TERRITORY_CONTROL_VAL = 2;
-const int DEVELOPMENT_VAL = 15;
-const int KING_SAFETY_VAL = 100;
+const int DEVELOPMENT_VAL = 40;
+const int KING_SAFETY_VAL = 80;
 const int PAWN_ADVANCEMENT_VAL = 1;
 
 int evaluate(board* b)
@@ -52,31 +52,31 @@ int evaluate_pawn_structure(board* b)
         if(RANK_2 >> i & 1)
         {
             white_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->white_pawns & RANK_2)));
-            black_count += PAWN_ADVANCEMENT_VAL * (15 * (count_bits(b->black_pawns & RANK_2)));
+            black_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->black_pawns & RANK_2)));
         }
         if(RANK_3 >> i & 1)
         {
-            white_count += PAWN_ADVANCEMENT_VAL * (1 * (count_bits(b->white_pawns & RANK_3)));
-            black_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->black_pawns & RANK_3)));
+            white_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->white_pawns & RANK_3)));
+            black_count += PAWN_ADVANCEMENT_VAL * (8 * (count_bits(b->black_pawns & RANK_3)));
         }
         if(RANK_4 >> i & 1)
         {
             white_count += PAWN_ADVANCEMENT_VAL * (3 * (count_bits(b->white_pawns & RANK_4)));
-            black_count += PAWN_ADVANCEMENT_VAL * (6 * (count_bits(b->black_pawns & RANK_4)));
+            black_count += PAWN_ADVANCEMENT_VAL * (4 * (count_bits(b->black_pawns & RANK_4)));
         }
         if(RANK_5 >> i & 1)
         {
-            white_count += PAWN_ADVANCEMENT_VAL * (6 * (count_bits(b->white_pawns & RANK_5)));
+            white_count += PAWN_ADVANCEMENT_VAL * (4 * (count_bits(b->white_pawns & RANK_5)));
             black_count += PAWN_ADVANCEMENT_VAL * (3 * (count_bits(b->black_pawns & RANK_5)));
         }
         if(RANK_6 >> i & 1)
         {
-            white_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->white_pawns & RANK_6)));
-            black_count += PAWN_ADVANCEMENT_VAL * (1 * (count_bits(b->black_pawns & RANK_6)));
+            white_count += PAWN_ADVANCEMENT_VAL * (8 * (count_bits(b->white_pawns & RANK_6)));
+            black_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->black_pawns & RANK_6)));
         }
         if(RANK_7 >> i & 1)
         {
-            white_count += PAWN_ADVANCEMENT_VAL * (15 * (count_bits(b->white_pawns & RANK_7)));
+            white_count += PAWN_ADVANCEMENT_VAL * (10 * (count_bits(b->white_pawns & RANK_7)));
             black_count += PAWN_ADVANCEMENT_VAL * (0 * (count_bits(b->black_pawns & RANK_7)));
         }
     }
