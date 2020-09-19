@@ -80,9 +80,6 @@ move pick_move(board* b, int search_depth)
                     best_move = current->data;
                 }
             }
-            printf(" current best: ");
-            print_move(best_move);
-            printf("\n");
         }
         current = current->next;
         free(new_position);

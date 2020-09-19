@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <board.h>
 #include <ctype.h>
@@ -108,20 +109,33 @@ board* parse_fen(char* fen)
         // parse halfmoves 
         if(isdigit(current_char))
         {
-            b->halfmove_clock = (int) current_char - 48; // subtract 48 because of ascii
+            char value[10] = { 0 };
+            while(isdigit(current_char))
+            {
+                strcat(value, &current_char);
+                current_char = fen[++i];
+            }
+            b->halfmove_clock = atoi(value);
+            fprintf(stderr, "\n%d\n", b->halfmove_clock);
         }
         else
         {
             fprintf(stderr, "Error: Invalid FEN format. Can't parse half moves.");
             return NULL;
         }
-        i+=2; // move past space
-        current_char = fen[i];
+        current_char = fen[++i]; // move past space
 
         // parse fullmoves
         if(isdigit(current_char))
         {
-            b->fullmove_count = (int) current_char - 48; // subtract 48 because of ascii
+            char value[10] = { 0 };
+            while(isdigit(current_char))
+            {
+                strcat(value, &current_char);
+                current_char = fen[++i];
+            }
+            b->fullmove_count = atoi(value);
+            fprintf(stderr, "\n%d\n", b->fullmove_count);
         }
         else
         {

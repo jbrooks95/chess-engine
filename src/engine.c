@@ -41,10 +41,17 @@ void play(int depth)
     {
         b = parse_fen(buffer);
         found_move = pick_move(b, depth);
-        printf("Selected move: ");
-        print_move(found_move);
-        printf(", ");
-        print_move_squares(found_move);
+        if(found_move.piece == '#')
+        {
+            printf("No moves. It's checkmate.");
+        }
+        else
+        {
+            printf("Selected move: ");
+            print_move(found_move);
+            printf(", ");
+            print_move_squares(found_move);
+        }
         printf("\nEnter FEN: ");
     }
 }
