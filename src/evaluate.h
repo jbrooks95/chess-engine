@@ -29,6 +29,8 @@ int count_bits(bitboard bb);
 
 int evaluate_square_control(board* b);
 
+int evaluate_king_safety(board* b);
+
 int evaluate_piece_development(board* b);
 
 int evaluate_space(board* b);

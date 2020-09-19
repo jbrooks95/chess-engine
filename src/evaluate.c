@@ -11,17 +11,19 @@ const int B_VAL = 350;
 const int N_VAL = 300;
 const int R_VAL = 500;
 const int P_VAL = 100;
-const int CENTER_CONTROL_VAL = 10;
-const int EXTENDED_CENTER_CONTROL_VAL = 3;
+const int CENTER_CONTROL_VAL = 15;
+const int EXTENDED_CENTER_CONTROL_VAL = 4;
 const int ENEMY_TERRITORY_CONTROL_VAL = 5;
-const int DEVELOPMENT_VAL = 10;
+const int DEVELOPMENT_VAL = 15;
+const int CASTLE_VAL = 15;
 
 int evaluate(board* b)
 {
     int material = count_material(b);
     int center_control = evaluate_square_control(b);
     int development = evaluate_piece_development(b);
-    return material + center_control + development;
+    int king_safety = evaluate_king_safety(b);
+    return material + center_control + development + king_safety;
 }
 
 int count_material(board* b)
@@ -34,6 +36,23 @@ int count_material(board* b)
     count += R_VAL*(count_bits(b->white_rooks) - count_bits(b->black_rooks));
     count += P_VAL*(count_bits(b->white_pawns) - count_bits(b->black_pawns));
     return count;
+}
+
+int evaluate_king_safety(board* b)
+{
+    int white_count = 0;
+    int black_count = 0;
+    if(b->castling & 4 || b->castling & 8)
+    {
+        //white hasn't castled
+        white_count -= CASTLE_VAL;
+    }
+    if(b->castling & 1 || b->castling & 2)
+    {
+        //black hasn't castled
+        black_count -= CASTLE_VAL;
+    }
+    return white_count - black_count;
 }
 
 int count_bits(bitboard bb)
