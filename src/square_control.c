@@ -2,6 +2,7 @@
 #include <static_bitboards.h>
 #include <shift.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <movegen.h>
 
 int* get_control(int color, board* b, int* control_array);
